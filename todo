@@ -1,15 +1,7 @@
-Display sprite for wall
-Color for the ceiling and the floor
-
-scene description: MAP
-4 possible caracters:
--0 for an empty space
--1 for  a wall
--2 for an item
--N, S, E or W for the player's start positin and spawning orientation
-
-Map must be closed -> return error if not
-Each element can be separated by one or more empty lines, except the map
-The map is always the last thing, the rest can work any orther
-Each informatin can be seprated by one or more space
-
+Cleaning:
+-implement cleaning memory.
+-
+Graphic:
+-need basic graphic functions such as:
+  -Draw vertical line according to a color.
+  -

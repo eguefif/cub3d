@@ -12,7 +12,8 @@ _SRC = cub3d.c \
 	   parsing_map.c \
 	   parsing_is_types.c \
 	   check_map.c \
-	   development_tools.c
+	   development_tools.c \
+	   check_map_rectangle.c
 _OBJ = $(_SRC:.c=.o)
 _INC = cub3d.h parsing.h
 SDIR = ./src/

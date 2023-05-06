@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:39:48 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/05 21:31:04 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/06 08:06:13 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	is_line_a_wall(char *line, int width);
 
 void	check_map(t_map map)
 {
+	check_map_rectangle(map);
 	check_if_map_is_closed(map);
 	check_if_map_countain_starting_point(map);
 }

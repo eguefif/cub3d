@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:12:29 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/05 21:03:38 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/06 08:00:29 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ int		is_map(char *line);
 //Parsing map functions
 t_map	parse_map(char *path);
 void	check_map(t_map map);
+void	check_map_rectangle(t_map map);
 #endif
