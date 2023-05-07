@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_management.c                                 :+:      :+:    :+:   */
+/*   keyboard_manager.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 18:17:18 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/06 13:55:52 by eguefif          ###   ########.fr       */
+/*   Created: 2023/05/06 14:11:16 by eguefif           #+#    #+#             */
+/*   Updated: 2023/05/06 19:20:06 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	handle_error(char *message)
+int	keyboard_manager(int key, t_screen *screen)
 {
-	ft_printf("Error: %s\n", message);
-	exit(0);
-}
+	if (key == ESCAPE)
+	{
+		terminate_game(screen);
+		exit(1);
+	}
+	return (1);
+}	

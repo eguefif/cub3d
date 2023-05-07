@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:00:04 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/05 21:23:44 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/06 19:18:22 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,36 @@
 
 static int	biggest_line(int line_width, int map_width);
 static void	get_map_size(t_map *map, char *path);
+static void	get_map(t_map *map, char *path);
 
 t_map	parse_map(char *path)
+{
+	t_map	map;
+
+	get_map_size(&map, path);
+	get_map(&map, path);
+	return (map);
+}
+
+void	get_map(t_map *map, char *path)
 {
 	int		counter;
 	char	line[MAX_MAP_WIDTH];
 	int		scene_file_descriptor;
-	t_map	map;
 
-	get_map_size(&map, path);
 	scene_file_descriptor = open(path, O_RDONLY);
-	map.map = (char **) malloc(map.height * sizeof(char *));
+	map->map = (char **) malloc(map->height * sizeof(char *));
 	counter = 0;
-	while (counter < map.height)
+	while (counter < map->height)
 	{
 		get_next_line(scene_file_descriptor, line);
 		if (is_map(line))
 		{
-			map.map[counter] = ft_strdup(line);
+			map->map[counter] = ft_strdup(line);
 			counter++;
 		}
 	}
 	close(scene_file_descriptor);
-	return (map);
 }
 
 void	get_map_size(t_map *map, char *path)

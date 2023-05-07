@@ -6,21 +6,23 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:17 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/05 20:20:36 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/06 14:39:13 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "parsing.h"
 
-int	check_arg(int argc);
+int		check_arg(int argc);
+void	main_loop(t_screen *screen);
 
 int	main(int argc, char *argv[])
 {
-	t_scene		scene;
+	t_screen	screen;
 
-	if (check_arg(argc))
-		parsing_scene(&scene, argv[1]);
+	check_arg(argc);
+	init_game(&screen, argv[1]);
+	main_loop(&screen);
+	terminate_game(&screen);
 	return (1);
 }
 
@@ -29,7 +31,14 @@ int	check_arg(int argc)
 	if (argc < 2)
 	{
 		ft_putendl("Usage: cub3d PATH_TO_SCENE");
-		return (0);
+		exit(0);
 	}
 	return (1);
+}
+
+void	main_loop(t_screen *screen)
+{
+	mlx_key_hook(screen->window, keyboard_manager, screen);
+	rendering_game(screen);
+	mlx_loop(screen->mlx_ptr);
 }

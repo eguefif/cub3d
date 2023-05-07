@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:04:41 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/05 21:28:42 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/06 19:15:57 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	parsing_other_element(t_scene *scene, char *path)
 		next_line_return = get_next_line(scene_file_descriptor, line);
 	}
 	if (next_line_return == -1)
-		ft_printf("Error(parsing_other_element()): problem while reading lines.\n");
+		ft_printf(
+			"Error(parsing_other_element()): problem while reading lines.\n");
 	close(scene_file_descriptor);
 }
 

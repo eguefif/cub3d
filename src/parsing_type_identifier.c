@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:13:48 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/05 20:56:24 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/06 19:17:37 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	parse_colors(t_scene *scene, char **splited_line)
 	rgb = ft_strsplit(splited_line[1], ',');
 	if (check_if_rgb_number(rgb))
 	{
-		if (ft_strcmp(splited_line[0], "C"))
+		if (!ft_strcmp(splited_line[0], "C"))
 		{
 			scene->ceiling.red = ft_atoi(rgb[0]);
 			scene->ceiling.green = ft_atoi(rgb[1]);
 			scene->ceiling.blue = ft_atoi(rgb[2]);
 		}
-		else if (ft_strcmp(splited_line[0], "F"))
+		else if (!ft_strcmp(splited_line[0], "F"))
 		{
 			scene->floor.red = ft_atoi(rgb[0]);
 			scene->floor.green = ft_atoi(rgb[1]);

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:39:48 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/06 08:06:13 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/06 19:19:29 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	check_if_map_is_closed(t_map map)
 	while (row_counter < map.height)
 	{
 		if (map.map[row_counter][0] != '1' ||
-				map.map[row_counter][map.width] != '1')
+				map.map[row_counter][map.width - 1] != '1')
 		{
 			ft_printf("Error parsing: the map is not closed.\n");
 			exit(-1);

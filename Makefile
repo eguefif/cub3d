@@ -1,24 +1,32 @@
 NAME = cub3d
 CFLAGS = -Wextra -Wall -Werror
-LIB = -L./libft_full -lft_full
+LIB = -L./libft_full -lft_full -L~/coding/c/minilibx-linux -lmlx \
+	  -L/usr/X11/lib -lX11 -lXext -lm -lz
 CC = gcc
 RM = rm -f
 DEBUG = -g -ggdb3
 
 _SRC = cub3d.c \
 	   error_management.c \
+	   development_tools.c \
 	   parsing.c \
 	   parsing_type_identifier.c \
 	   parsing_map.c \
 	   parsing_is_types.c \
+	   parsing_map_information.c \
+	   init_ray_casting.c \
 	   check_map.c \
-	   development_tools.c \
-	   check_map_rectangle.c
+	   check_map_rectangle.c \
+	   init_game.c \
+	   terminate.c \
+	   keyboard_manager.c \
+	   rendering.c \
+	   draw_basic_figures.c
 _OBJ = $(_SRC:.c=.o)
 _INC = cub3d.h parsing.h
 SDIR = ./src/
 ODIR = ./obj/
-IDIR = -I./include -I./libft_full/include
+IDIR = -I./include -I./libft_full/include -I/usr/include
 OBJ = $(addprefix $(ODIR), $(_OBJ))
 SRC = $(addprefix $(SDIR), $(_SRC))
 INC = $(addprefix $(IDIR), $(_INC))
