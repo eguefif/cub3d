@@ -6,26 +6,27 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 14:57:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/06 19:20:57 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/07 13:49:06 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static void	draw_pixel_on_buffer(t_screen *screen, t_point point);
-static void	draw_top_part(t_screen *screen, t_raycasting_vertical_line line);
-static void	draw_mid_part(t_screen *screen, t_raycasting_vertical_line line);
-static void	draw_bot_part(t_screen *screen, t_raycasting_vertical_line line);
+static void	draw_top_part(t_screen *screen, t_raycast_line line);
+static void	draw_mid_part(t_screen *screen, t_raycast_line line);
+static void	draw_bot_part(t_screen *screen, t_raycast_line line);
+static int	is_position_outside(int position, t_screen *screen);
 
 void	draw_raycasting_vertical_line(t_screen *screen,
-		t_raycasting_vertical_line line)
+		t_raycast_line line)
 {
 	draw_top_part(screen, line);
 	draw_mid_part(screen, line);
 	draw_bot_part(screen, line);
 }
 
-static void	draw_top_part(t_screen *screen, t_raycasting_vertical_line line)
+static void	draw_top_part(t_screen *screen, t_raycast_line line)
 {
 	t_point	point;
 	int		counter;
@@ -41,7 +42,7 @@ static void	draw_top_part(t_screen *screen, t_raycasting_vertical_line line)
 	}
 }
 
-static void	draw_mid_part(t_screen *screen, t_raycasting_vertical_line line)
+static void	draw_mid_part(t_screen *screen, t_raycast_line line)
 {
 	t_point	point;
 	int		counter;
@@ -59,7 +60,7 @@ static void	draw_mid_part(t_screen *screen, t_raycasting_vertical_line line)
 	}
 }
 
-static void	draw_bot_part(t_screen *screen, t_raycasting_vertical_line line)
+static void	draw_bot_part(t_screen *screen, t_raycast_line line)
 {
 	t_point	point;
 	int		counter;
@@ -88,5 +89,17 @@ void	draw_pixel_on_buffer(t_screen *screen, t_point point)
 	x = point.x * screen->buffer.bits_per_pixel / 8;
 	position = x + y;
 	dst = screen->buffer.start_area_ptr + position;
+	if (is_position_outside(position, screen))
+		printf("Alert, %d %d\n", point.x, point.y);
 	*(unsigned int *)dst = point.color.rgb;
+}
+
+static int	is_position_outside(int position, t_screen *screen)
+{
+	int		size;
+
+	size = screen->buffer.size_line * screen->scene.resolution.height;
+	if (position > size || position < 0)
+		return (1);
+	return (0);
 }

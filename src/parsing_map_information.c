@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/06 19:18:55 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/07 21:21:27 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,29 @@ static void	looking_for_player(t_screen *screen)
 	int		row_counter;
 	char	cell;
 
-	cols_counter = 0;
-	while (cols_counter < screen->scene.map.height)
+	row_counter = 0;
+	while (row_counter < screen->scene.map.height)
 	{
-		row_counter = 0;
-		while (row_counter < screen->scene.map.width)
+		cols_counter = 0;
+		while (cols_counter < screen->scene.map.width)
 		{
-			cell = screen->scene.map.map[cols_counter][row_counter];
+			cell = screen->scene.map.map[row_counter][cols_counter];
 			if (is_player(cell))
 			{
-				screen->raycasting_param.player.x = cols_counter;
-				screen->raycasting_param.player.y = row_counter;
+				screen->raycasting_param.player.x = cols_counter * SQUARE_SIZE;
+				screen->raycasting_param.player.y = row_counter * SQUARE_SIZE;
 				screen->raycasting_param.player.direction = get_direction(cell);
+				return ;
 			}
-			row_counter++;
+			cols_counter++;
 		}
-		cols_counter++;
+		row_counter++;
 	}
 }
 
 static int	is_player(char c)
 {
-	if (!ft_strchr("NSWE", c))
+	if (ft_strchr("NSWE", c))
 		return (1);
 	return (0);
 }

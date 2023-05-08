@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/06 19:40:29 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/07 21:14:27 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <mlx.h>
+# include <math.h>
 # include "libft.h"
 # include "get_next_line.h"
 # include "ft_printf.h"
@@ -73,7 +74,7 @@ typedef struct s_point
 	t_color	color;
 }			t_point;
 
-typedef struct s_raycasting_vertical_line
+typedef struct s_raycast_line
 {
 	t_color	top_color;
 	t_color	mid_color;
@@ -81,7 +82,7 @@ typedef struct s_raycasting_vertical_line
 	int		x;
 	int		y_top;
 	int		y_bot;
-}			t_raycasting_vertical_line;
+}			t_raycast_line;
 
 typedef struct s_screen_buffer
 {
@@ -112,6 +113,7 @@ typedef struct s_raycasting_parameter
 	int						field_of_view;
 	t_projection_plane		projection_plane;
 	double					angle_subsequent_rays;
+	int						projection_var;
 }				t_raycasting_parameter;
 
 typedef struct s_screen
@@ -123,15 +125,35 @@ typedef struct s_screen
 	t_raycasting_parameter	raycasting_param;
 }							t_screen;
 
+typedef struct s_ray
+{
+	int			nbr;
+	double		angle;
+	int			wall_distance;
+	t_point		check_position;
+	t_player	player;
+}				t_ray;
+
 void	init_game(t_screen *screen, char *path);
 void	init_raycasting(t_screen *screen);
-void	parsing_map_information(t_screen *screen);
 void	init_screen_buffer(t_screen *screen);
+void	parsing_map_information(t_screen *screen);
 void	terminate_game(t_screen *screen);
 int		keyboard_manager(int key, t_screen *screen);
-void	rendering_game(t_screen *screen);
+int		rendering_game(t_screen *screen);
+// graphic functins using mlx in buffering
+void	swap_frame_screen(t_screen *screen);
 void	draw_raycasting_vertical_line(t_screen *screen,
-			t_raycasting_vertical_line line);
+			t_raycast_line line);
+int		min(int a, int b);
+void	init_ray(t_ray *ray, t_screen *screen);
+// Ray functions in raycasting files
+int		get_distance_to_horizontal_wall(t_map map, t_ray *ray);
+int		get_distance_to_vertical_wall(t_map map, t_ray *ray);
+int		check_for_wall(t_map map, t_point point);
+double	degree_to_radian(double angle);
+int		calculate_distance(t_point player, t_point wall);
+// Error functions in error files
 void	handle_error(char *message);
 
 // Development functions

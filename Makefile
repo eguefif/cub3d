@@ -21,7 +21,11 @@ _SRC = cub3d.c \
 	   terminate.c \
 	   keyboard_manager.c \
 	   rendering.c \
-	   draw_basic_figures.c
+	   rendering_utils.c \
+	   draw_basic_figures.c \
+	   buffering.c \
+	   raycasting.c \
+	   raycasting_utils.c
 _OBJ = $(_SRC:.c=.o)
 _INC = cub3d.h parsing.h
 SDIR = ./src/

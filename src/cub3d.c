@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:17 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/06 14:39:13 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/07 21:13:42 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	check_arg(int argc)
 void	main_loop(t_screen *screen)
 {
 	mlx_key_hook(screen->window, keyboard_manager, screen);
-	rendering_game(screen);
+	mlx_loop_hook(screen->mlx_ptr, rendering_game, screen);
 	mlx_loop(screen->mlx_ptr);
 }

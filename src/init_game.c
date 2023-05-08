@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:36:41 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/06 19:39:02 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/08 10:29:21 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h" 
@@ -40,9 +40,9 @@ void	init_color(t_screen *screen)
 {
 	screen->scene.floor.rgb = get_color(screen, screen->scene.floor);
 	screen->scene.ceiling.rgb = get_color(screen, screen->scene.ceiling);
-	screen->scene.wall.red = 0;
-	screen->scene.wall.green = 125;
-	screen->scene.wall.blue = 125;
+	screen->scene.wall.red = 255;
+	screen->scene.wall.green = 0;
+	screen->scene.wall.blue = 0;
 	screen->scene.wall.rgb = get_color(screen, screen->scene.wall);
 }
 
