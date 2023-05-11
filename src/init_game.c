@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:36:41 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/08 10:29:21 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 10:19:37 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h" 
@@ -14,14 +14,20 @@
 
 static void	init_graphic(t_screen *screen);
 static void	init_color(t_screen *screen);
-static int	get_color(t_screen *screen, t_color color);
+int			get_color(t_screen *screen, t_color color);
 
-void	init_game(t_screen *screen, char *path)
+void	init_game(t_screen *screen, char *path, int two_d)
 {
 	parsing_scene(&screen->scene, path);
 	parsing_map_information(screen);
+	if (two_d == 1)
+	{
+		screen->scene.resolution.width = screen->scene.map.width * SQUARE_SIZE;
+		screen->scene.resolution.height = screen->scene.map.height * SQUARE_SIZE;
+	}
 	init_graphic(screen);
 	init_color(screen);
+	init_textures(screen);
 	init_screen_buffer(screen);
 	init_raycasting(screen);
 }
@@ -34,6 +40,7 @@ void	init_graphic(t_screen *screen)
 			screen->scene.resolution.width,
 			screen->scene.resolution.height,
 			WINDOW_TITLE);
+	mlx_do_key_autorepeaton(screen->mlx_ptr);
 }
 
 void	init_color(t_screen *screen)
@@ -41,8 +48,8 @@ void	init_color(t_screen *screen)
 	screen->scene.floor.rgb = get_color(screen, screen->scene.floor);
 	screen->scene.ceiling.rgb = get_color(screen, screen->scene.ceiling);
 	screen->scene.wall.red = 255;
-	screen->scene.wall.green = 0;
-	screen->scene.wall.blue = 0;
+	screen->scene.wall.green = 255;
+	screen->scene.wall.blue = 255;
 	screen->scene.wall.rgb = get_color(screen, screen->scene.wall);
 }
 

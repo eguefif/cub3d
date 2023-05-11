@@ -25,7 +25,11 @@ _SRC = cub3d.c \
 	   draw_basic_figures.c \
 	   buffering.c \
 	   raycasting.c \
-	   raycasting_utils.c
+	   raycasting_utils.c \
+	   2d_model.c \
+	   player_movement.c \
+	   time_handler.c \
+	   init_textures.c
 _OBJ = $(_SRC:.c=.o)
 _INC = cub3d.h parsing.h
 SDIR = ./src/

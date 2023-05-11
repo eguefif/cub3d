@@ -1,11 +1,12 @@
-/* ************************************************************************** */ /*                                                                            */
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/06 21:39:00 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/07 20:14:18 by eguefif          ###   ########.fr       */
+/*   Created: 2023/05/11 08:15:55 by eguefif           #+#    #+#             */
+/*   Updated: 2023/05/11 10:15:27 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +19,8 @@ int	check_for_wall(t_map map, t_point point)
 	int		x;
 	int		y;
 
-	x = floor(point.x / SQUARE_SIZE);
-	y = floor(point.y / SQUARE_SIZE);
+	x = (int) floor(point.x / SQUARE_SIZE);
+	y = (int) floor(point.y / SQUARE_SIZE);
 	if (is_point_in_map(map, x, y))
 	{
 		if (map.map[y][x] == '1')
@@ -54,4 +55,12 @@ int	calculate_distance(t_point player, t_point wall)
 double	degree_to_radian(double angle)
 {
 	return ((double) angle * 2 * M_PI / 360);
+}
+
+void	calculate_wall_distance(t_screen *screen, t_ray *ray)
+{
+	get_dist_to_vertical_wall(screen->scene.map, ray);
+	get_dist_to_horizontal_wall(screen->scene.map, ray);
+	ray->wall_point = get_shorter_ray(
+			ray->vertical_check, ray->horizontal_check);
 }

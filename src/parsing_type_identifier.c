@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:13:48 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/06 19:17:37 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 10:37:36 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	parse_resolution(t_scene *scene, char **splited_line)
 void	parse_textures(t_scene *scene, char **splited_line)
 {
 	if (!ft_strcmp(splited_line[0], "NO"))
-		ft_strncpy(scene->north, splited_line[1], 49);
+		ft_strncpy(scene->textures[0].path, splited_line[1], 49);
 	else if (!ft_strcmp(splited_line[0], "SO"))
-		ft_strncpy(scene->south, splited_line[1], 49);
+		ft_strncpy(scene->textures[1].path, splited_line[1], 49);
 	else if (!ft_strcmp(splited_line[0], "EA"))
-		ft_strncpy(scene->east, splited_line[1], 49);
+		ft_strncpy(scene->textures[2].path, splited_line[1], 49);
 	else if (!ft_strcmp(splited_line[0], "WE"))
-		ft_strncpy(scene->west, splited_line[1], 49);
+		ft_strncpy(scene->textures[3].path, splited_line[1], 49);
 	else if (!ft_strcmp(splited_line[0], "S"))
-		ft_strncpy(scene->sprite, splited_line[1], 49);
+		ft_strncpy(scene->textures[4].path, splited_line[1], 49);
 }
 
 void	parse_colors(t_scene *scene, char **splited_line)

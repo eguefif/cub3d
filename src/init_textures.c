@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminate.c                                        :+:      :+:    :+:   */
+/*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/06 13:48:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/10 16:31:44 by eguefif          ###   ########.fr       */
+/*   Created: 2023/05/11 10:19:10 by eguefif           #+#    #+#             */
+/*   Updated: 2023/05/11 12:12:09 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	map_memory_cleanup(t_map map);
+static void	init_texture(void *mlx_ptr, t_image *image);
 
-int	terminate_game(t_screen *screen)
-{
-	map_memory_cleanup(screen->scene.map);
-	mlx_destroy_window(screen->mlx_ptr, screen->window);
-	return (0);
-}
-
-void	map_memory_cleanup(t_map map)
+void	init_textures(t_screen *screen)
 {
 	int		counter;
 
 	counter = 0;
-	while (counter < map.height)
+	while (counter < NBR_TEXTURES)
 	{
-		free(map.map[counter]);
+		init_texture(screen->mlx_ptr, &screen->scene.textures[counter]);
 		counter++;
 	}
-	free(map.map);
+}
+
+static void	init_texture(void *mlx_ptr, t_image *image)
+{
+	image->img_ptr = mlx_xpm_file_to_image(mlx_ptr, image->path,
+			&image->width, &image->height);
+	image->start_area_ptr = mlx_get_data_addr(image->img_ptr,
+			&image->bits_per_pixel, &image->size_line, &image->endian);
 }

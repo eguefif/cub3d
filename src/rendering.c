@@ -5,14 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/06 14:27:21 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/08 10:06:42 by eguefif          ###   ########.fr       */
+/*   Created: 2023/05/11 07:58:25 by eguefif           #+#    #+#             */
+/*   Updated: 2023/05/11 08:06:56 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	calculate_wall_distance(t_screen *screen, t_ray *ray);
 static void	correct_fishbowl_dist(t_screen *screen, t_ray *ray);
 static void	calculate_vertical_line(t_screen *screen, int distance,
 				t_raycast_line *line);
@@ -23,36 +22,45 @@ int	rendering_game(t_screen *screen)
 {
 	t_raycast_line	line;
 	t_ray			ray;
+	clock_t			start_time;
 
+	start_time = clock();
 	ray.nbr = 0;
+	handle_movement(screen);
 	while (ray.nbr < screen->scene.resolution.width)
 	{
 		line.x = ray.nbr;
 		init_ray(&ray, screen);
 		calculate_wall_distance(screen, &ray);
+		correct_fishbowl_dist(screen, &ray);
 		calculate_vertical_line(screen, ray.wall_distance, &line);
 		draw_raycasting_vertical_line(screen, line);
-		ray.nbr++;
-		//ray.nbr+=50;
+		ray.nbr ++;
 	}
+	check_time(start_time);
 	swap_frame_screen(screen);
-	return (1);
+	return (0);
 }
 
-static void	calculate_wall_distance(t_screen *screen, t_ray *ray)
+int	rendering_game_2d(t_screen *screen)
 {
-	int		distance_to_horizontal_wall;
-	int		distance_to_vertical_wall;
+	t_ray			ray;
+	clock_t			start_time;
 
-	if (ray->angle != 0  && ray->angle != 180 && ray->angle != 360)
-		distance_to_horizontal_wall = get_distance_to_horizontal_wall(
-					screen->scene.map, ray);
-	if (ray->angle != 90 && ray->angle != 270)
-		distance_to_vertical_wall = get_distance_to_vertical_wall(
-						screen->scene.map, ray);
-	ray->wall_distance = min(
-			distance_to_horizontal_wall, distance_to_vertical_wall);
-	correct_fishbowl_dist(screen, ray);
+	start_time = clock();
+	handle_movement(screen);
+	ray.nbr = 0;
+	draw_2d_model(screen);
+	while (ray.nbr < screen->scene.resolution.width)
+	{
+		init_ray(&ray, screen);
+		calculate_wall_distance(screen, &ray);
+		draw_2d_ray(screen, ray);
+		ray.nbr ++;
+	}
+	check_time(start_time);
+	swap_frame_screen(screen);
+	return (0);
 }
 
 static void	correct_fishbowl_dist(t_screen *screen, t_ray *ray)
@@ -61,7 +69,7 @@ static void	correct_fishbowl_dist(t_screen *screen, t_ray *ray)
 	double	angle;
 
 	subsequent_angle = screen->raycasting_param.angle_subsequent_rays;
-	angle = (double) (-FOV / 2 + (subsequent_angle * ray->nbr));
+	angle = (double)(-FOV / 2 + (subsequent_angle * ray->nbr));
 	angle = (double) degree_to_radian(angle);
 	ray->wall_distance = ray->wall_distance * cos(angle);
 }

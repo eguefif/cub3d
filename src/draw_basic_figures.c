@@ -6,13 +6,13 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 14:57:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/07 13:49:06 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 08:20:49 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	draw_pixel_on_buffer(t_screen *screen, t_point point);
+void		draw_pixel_on_buffer(t_screen *screen, t_point point);
 static void	draw_top_part(t_screen *screen, t_raycast_line line);
 static void	draw_mid_part(t_screen *screen, t_raycast_line line);
 static void	draw_bot_part(t_screen *screen, t_raycast_line line);
@@ -85,13 +85,12 @@ void	draw_pixel_on_buffer(t_screen *screen, t_point point)
 	int		x;
 	char	*dst;
 
-	y = screen->buffer.size_line * point.y;
-	x = point.x * screen->buffer.bits_per_pixel / 8;
+	y = screen->buffer.size_line * (int) point.y;
+	x = (int) point.x * screen->buffer.bits_per_pixel / 8;
 	position = x + y;
 	dst = screen->buffer.start_area_ptr + position;
-	if (is_position_outside(position, screen))
-		printf("Alert, %d %d\n", point.x, point.y);
-	*(unsigned int *)dst = point.color.rgb;
+	if (!is_position_outside(position, screen))
+		*(unsigned int *)dst = point.color.rgb;
 }
 
 static int	is_position_outside(int position, t_screen *screen)

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/07 21:21:27 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/10 17:18:57 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ static void	looking_for_player(t_screen *screen)
 			cell = screen->scene.map.map[row_counter][cols_counter];
 			if (is_player(cell))
 			{
-				screen->raycasting_param.player.x = cols_counter * SQUARE_SIZE;
-				screen->raycasting_param.player.y = row_counter * SQUARE_SIZE;
-				screen->raycasting_param.player.direction = get_direction(cell);
+				screen->player.coord.x = cols_counter * SQUARE_SIZE;
+				screen->player.coord.y = row_counter * SQUARE_SIZE;
+				screen->player.direction = get_direction(cell);
+				screen->player.direction_movement = 0;
+				screen->player.movement = 0;
 				return ;
 			}
 			cols_counter++;
@@ -57,12 +59,12 @@ static int	is_player(char c)
 static int	get_direction(char c)
 {
 	if (c == 'N')
-		return (90);
-	else if (c == 'W')
-		return (180);
-	else if (c == 'S')
 		return (270);
-	else if (c == 'E')
+	else if (c == 'W')
 		return (0);
+	else if (c == 'S')
+		return (90);
+	else if (c == 'E')
+		return (180);
 	return (0);
 }

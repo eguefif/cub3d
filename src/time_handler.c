@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   terminate.c                                        :+:      :+:    :+:   */
+/*   time_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/06 13:48:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/10 16:31:44 by eguefif          ###   ########.fr       */
+/*   Created: 2023/05/11 08:03:27 by eguefif           #+#    #+#             */
+/*   Updated: 2023/05/11 08:13:36 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	map_memory_cleanup(t_map map);
-
-int	terminate_game(t_screen *screen)
+void	check_time(clock_t start_time)
 {
-	map_memory_cleanup(screen->scene.map);
-	mlx_destroy_window(screen->mlx_ptr, screen->window);
-	return (0);
-}
+	clock_t			end_time;
+	static double	elapsed_time = 0;
+	double			difference;
 
-void	map_memory_cleanup(t_map map)
-{
-	int		counter;
-
-	counter = 0;
-	while (counter < map.height)
+	if (elapsed_time == 0)
+		return ;
+	else
 	{
-		free(map.map[counter]);
-		counter++;
+		end_time = clock();
+		elapsed_time = ((double)(end_time - start_time) / CLOCKS_PER_SEC);
+		difference = (30 / 60) - elapsed_time;
+		if (difference > 0)
+			sleep((unsigned int) difference);
 	}
-	free(map.map);
 }

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 13:28:25 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/08 08:22:57 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 10:09:39 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,27 @@
 
 void	init_ray(t_ray *ray, t_screen *screen)
 {
-	int		direction;
-	double	subsequent_angle;
+	int		dir;
+	double	subseq_angle;
+	double	half_fov;
 
-	subsequent_angle = screen->raycasting_param.angle_subsequent_rays;
-	direction = screen->raycasting_param.player.direction;
-	ray->angle = (double) direction - FOV / 2 + subsequent_angle * ray->nbr;
+	subseq_angle = screen->raycasting_param.angle_subsequent_rays;
+	dir = screen->player.direction;
+	half_fov = FOV / 2;
+	ray->angle = (double) dir - half_fov + subseq_angle * ray->nbr + 0.00001;
 	if (ray->angle > 360)
 		ray->angle = ray->angle - 360;
-	ray->player = screen->raycasting_param.player;
+	ray->player = screen->player;
+	ray->cosinus = cos(degree_to_radian(ray->angle));
+	ray->sinus = sin(degree_to_radian(ray->angle));
+	ray->max_step = screen->scene.map.width + screen->scene.map.height;
 }
 
-int	min(int a, int b)
+t_ray_check	get_shorter_ray(t_ray_check ray1, t_ray_check ray2)
 {
-	if (a <= b && a >= 0)
-		return (a);
-	else if (b > 0)
-		return (b);
-	return (0);
+	if (ray1.distance <= ray2.distance && ray1.distance > 0)
+		return (ray1);
+	else if (ray2.distance > 0)
+		return (ray2);
+	return (ray1);
 }
