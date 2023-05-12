@@ -1,9 +1,9 @@
 R 1300 700
-NO ./ressource/texture/north.xpm
-SO ./ressource/texture/south.xpm
-WE ./ressource/texture/west.xpm
-EA ./ressource/texture/east.xpm
-S ./texture/sprite.png
+NO ./Ressource/textures/north.xpm
+SO ./Ressource/textures/north.xpm
+WE ./Ressource/textures/east.xpm
+EA ./Ressource/textures/east.xpm
+S ./Ressource/sprites/candlebra.xpm
 C 0,0,0
 F 0,0,0
 111111111111

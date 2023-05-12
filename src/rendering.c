@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 07:58:25 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 08:06:56 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 20:13:15 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,16 @@ int	rendering_game(t_screen *screen)
 	handle_movement(screen);
 	while (ray.nbr < screen->scene.resolution.width)
 	{
+		printf("Player position %f %f\n", screen->player.coord.x, screen->player.coord.y);
 		line.x = ray.nbr;
 		init_ray(&ray, screen);
 		calculate_wall_distance(screen, &ray);
 		correct_fishbowl_dist(screen, &ray);
-		calculate_vertical_line(screen, ray.wall_distance, &line);
+		printf("%f\n", ray.wall_point.distance);
+		calculate_vertical_line(screen, ray.wall_point.distance, &line);
 		draw_raycasting_vertical_line(screen, line);
-		ray.nbr ++;
+		//ray.nbr ++;
+		ray.nbr+=1800;
 	}
 	check_time(start_time);
 	swap_frame_screen(screen);

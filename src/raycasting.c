@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:58:49 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 10:13:56 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 20:09:45 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	get_dist_to_vertical_wall(t_map map, t_ray *ray)
 		ray->vertical_check.distance += ray->d_depth;
 		counter++;
 	}
+	printf("Vertical: %f\n", ray->vertical_check.distance);
 	ray->vertical_check.distance = fabs(ray->vertical_check.distance);
 }
 
@@ -72,6 +73,7 @@ void	get_dist_to_horizontal_wall(t_map map, t_ray *ray)
 		ray->horizontal_check.distance += ray->d_depth;
 		counter++;
 	}
+	printf("Horizonal: %f\n", ray->vertical_check.distance);
 	ray->horizontal_check.distance = fabs(ray->horizontal_check.distance);
 }
 
