@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 10:54:18 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 19:35:35 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_scene
 	t_color			ceiling;
 	t_color			wall;
 	t_map			map;
-	t_image					textures[NBR_TEXTURES];
+	t_image			textures[NBR_TEXTURES];
 }					t_scene;
 
 typedef struct s_point

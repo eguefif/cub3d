@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 20:12:18 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/06 19:15:31 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 19:32:24 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	display_scene(t_scene *scene)
 	ft_printf("Resolution: %d %d\n",
 		scene->resolution.width,
 		scene->resolution.height);
-	ft_printf("North: %s\n", scene->north);
-	ft_printf("East: %s\n", scene->east);
-	ft_printf("West: %s\n", scene->west);
-	ft_printf("East: %s\n", scene->east);
-	ft_printf("Sprite: %s\n", scene->sprite);
+	ft_printf("North: %s\n", scene->textures[NORTH]);
+	ft_printf("East: %s\n", scene->textures[SOUTH]);
+	ft_printf("West: %s\n", scene->textures[EAST]);
+	ft_printf("East: %s\n", scene->textures[WEST]);
+	ft_printf("Sprite: %s\n", scene->textures[SPRITE]);
 	ft_printf("Floor color: %d %d %d\n", scene->floor.red,
 		scene->floor.green, scene->floor.blue);
 	ft_printf("Ceiling color: %d %d %d\n", scene->ceiling.red,
