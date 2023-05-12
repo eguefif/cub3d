@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 10:54:18 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 19:24:27 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define MAX_MAP_WIDTH 500
 # define WINDOW_TITLE "Cub3d"
 # define FOV 60
-# define SQUARE_SIZE 100
+# define SQUARE_SIZE 64
 # define NBR_TEXTURES 5
 # define NORTH 0
 # define SOUTH 1
@@ -73,7 +73,7 @@ typedef struct s_scene
 	t_color			ceiling;
 	t_color			wall;
 	t_map			map;
-	t_image					textures[NBR_TEXTURES];
+	t_image			textures[NBR_TEXTURES];
 }					t_scene;
 
 typedef struct s_point
