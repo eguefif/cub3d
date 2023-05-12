@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:19:16 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 08:15:44 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 20:23:04 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	draw_2d_ray(t_screen *screen, t_ray ray)
 	point.x = ray.player.coord.x;
 	point.y = ray.player.coord.y;
 	point.color = screen->scene.wall;
-	while (counter < ray.wall_distance)
+	while (counter < ray.wall_point.distance)
 	{
 		point.x += dx;
 		point.y += dy;
@@ -128,6 +128,7 @@ static void	draw_2d_player(t_screen *screen)
 		}
 		radius++;
 	}
+	player = screen->player.coord;
 	draw_line(screen, player, 150);
 }
 

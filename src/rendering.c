@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 07:58:25 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 20:13:15 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/11 20:27:45 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	rendering_game(t_screen *screen)
 	handle_movement(screen);
 	while (ray.nbr < screen->scene.resolution.width)
 	{
-		printf("Player position %f %f\n", screen->player.coord.x, screen->player.coord.y);
 		line.x = ray.nbr;
 		init_ray(&ray, screen);
 		calculate_wall_distance(screen, &ray);
@@ -37,8 +36,7 @@ int	rendering_game(t_screen *screen)
 		printf("%f\n", ray.wall_point.distance);
 		calculate_vertical_line(screen, ray.wall_point.distance, &line);
 		draw_raycasting_vertical_line(screen, line);
-		//ray.nbr ++;
-		ray.nbr+=1800;
+		ray.nbr ++;
 	}
 	check_time(start_time);
 	swap_frame_screen(screen);
@@ -74,7 +72,7 @@ static void	correct_fishbowl_dist(t_screen *screen, t_ray *ray)
 	subsequent_angle = screen->raycasting_param.angle_subsequent_rays;
 	angle = (double)(-FOV / 2 + (subsequent_angle * ray->nbr));
 	angle = (double) degree_to_radian(angle);
-	ray->wall_distance = ray->wall_distance * cos(angle);
+	ray->wall_point.distance = ray->wall_point.distance * cos(angle);
 }
 
 static void	calculate_vertical_line(t_screen *screen, int distance,
