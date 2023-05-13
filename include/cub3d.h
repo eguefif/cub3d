@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 14:17:06 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 14:23:00 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define RESCALE_WIDTH 1
 # define MAX_MAP_WIDTH 500
 # define WINDOW_TITLE "Cub3d"
-# define FOV 60
+# define FOV 66
 # define SQUARE_SIZE 192
 # define PLAYER_SIZE 23
 # define NBR_TEXTURES 5
