@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:03:29 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/07 10:47:15 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 14:26:04 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_raycasting(t_screen *screen)
 	screen->raycasting_param.projection_plane.width = width;
 	height = screen->scene.resolution.height;
 	screen->raycasting_param.projection_plane.height = height;
-	screen->raycasting_param.projection_plane.player_plane_distance = 277;
+	screen->raycasting_param.projection_plane.player_plane_distance = PROJECTION_PLANE_DST;
 	fov = screen->raycasting_param.field_of_view;
 	screen->raycasting_param.angle_subsequent_rays = (double) fov / width;
 	dist = screen->raycasting_param.projection_plane.player_plane_distance;
