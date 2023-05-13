@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 11:43:06 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 12:32:13 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,8 +204,6 @@ void		calculate_wall_distance(t_screen *screen, t_ray *ray);
 
 // Image processing functions
 t_image	create_image(t_screen *screen, int width, int height);
-t_image	rescale(t_image image, t_screen *screen, int scale);
-void	draw_image_on_image(t_screen_buffer *dst, t_image src, t_ray ray, t_raycast_line line);
 
 // Error functions in error files
 void	handle_error(char *message);

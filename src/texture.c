@@ -6,14 +6,15 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 10:54:13 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 12:31:50 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <time.h>
 
-void	get_slice(t_image image, t_ray ray, t_image *slice);
+static void	draw_image_on_image(t_screen_buffer *dst,
+		t_image src, t_ray ray, t_raycast_line line);
 int		get_texture(void);
 
 void	draw_texture_line(t_screen *screen, t_ray ray, t_raycast_line line)
@@ -24,30 +25,38 @@ void	draw_texture_line(t_screen *screen, t_ray ray, t_raycast_line line)
 	draw_image_on_image(&screen->buffer, screen->scene.textures[texture], ray, line);
 }
 
-int	get_texture(void)
+static void	draw_image_on_image(t_screen_buffer *dst,
+		t_image src, t_ray ray, t_raycast_line line)
 {
-	return (0);
-}
-
-void	get_slice(t_image image, t_ray ray, t_image *slice)
-{
+	int		position_dst;
+	int		position_src;
 	int		row;
 	int		cols;
-	int		slice_position;
-	int		image_position;
+	double	scale_factor;
+	int		src_x;
 
+	scale_factor = (double) src.height / line.wall_height;
 	row = 0;
-	while (row < image.height)
+	src_x = (int) ray.wall_point.offset;
+	while (row < line.wall_height)
 	{
 		cols = 0;
-		while (cols < slice->width)
+		while (cols < RESCALE_WIDTH)
 		{
-			slice_position = cols * slice->bits_per_pixel / 8 + row * slice->size_line;
-			image_position = (int) (cols + ray.wall_point.offset) * (image.bits_per_pixel / 8) + (
-					row * image.size_line);
-			memcpy((slice->start_area_ptr + slice_position), image.start_area_ptr + image_position, 4 * sizeof(char));
+			position_dst = (cols + ray.nbr) * dst->bits_per_pixel / 8 + (
+					((int) line.y_top + row) * dst->size_line);
+			position_src = (cols + src_x) * src.bits_per_pixel / 8 + (
+					floor(scale_factor * row) * src.size_line);
+			memcpy((dst->start_area_ptr + position_dst), src.start_area_ptr + position_src,
+					4 * sizeof(char));
 			cols++;
 		}
 		row++;
 	}
+}
+
+
+int	get_texture(void)
+{
+	return (0);
 }
