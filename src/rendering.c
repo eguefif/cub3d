@@ -21,7 +21,6 @@ int	rendering_game(t_screen *screen)
 {
 	t_raycast_line	line;
 	t_ray			ray;
-	clock_t			start, end;
 
 	ray.nbr = 0;
 	handle_movement(screen);
@@ -33,13 +32,10 @@ int	rendering_game(t_screen *screen)
 		correct_fishbowl_dist(screen, &ray);
 		calculate_vertical_line(screen, ray.wall_point.distance, &line);
 		draw_raycasting_vertical_line(screen, line);
-		start = clock();
 		draw_texture_line(screen, ray, line);
-		end = clock();
-		printf("--------NEW casting one ray: %f\n", (double) (end - start) / CLOCKS_PER_SEC);
 		ray.nbr += RESCALE_WIDTH;
 	}
-	//check_time(screen);
+	check_time(screen);
 	swap_frame_screen(screen);
 	return (0);
 }

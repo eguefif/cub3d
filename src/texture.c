@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 08:27:22 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 10:54:13 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,9 @@ int		get_texture(void);
 void	draw_texture_line(t_screen *screen, t_ray ray, t_raycast_line line)
 {
 	int		texture;
-	t_image	slice;
-	t_image	scaled_slice;
-	clock_t	start, end;
 
 	texture = get_texture();
-//	start = clock();
-	slice = create_image(screen, RESCALE_WIDTH, screen->scene.textures[texture].height);
-//	end = clock();
-//	printf("Image creating: %f\n", (double) (end - start) / CLOCKS_PER_SEC);
-//	start = clock();
-	get_slice(screen->scene.textures[texture], ray, &slice);
-//	end = clock();
-//	printf("Slicing: %f\n", (double) (end - start) / CLOCKS_PER_SEC);
-	start = clock();
-	scaled_slice = rescale(slice, screen, line.wall_height);
-	end = clock();
-	printf("Rescaling: %f\n", (double) (end - start) / CLOCKS_PER_SEC);
-//	start = clock();
-	draw_image_on_image(&screen->buffer, scaled_slice, ray.nbr, line.y_top);
-//	end = clock();
-//	printf("Drawing: %f\n", (double) (end - start) / CLOCKS_PER_SEC);
-//	start = clock();
-	mlx_destroy_image(screen->mlx_ptr, scaled_slice.img_ptr);
-	mlx_destroy_image(screen->mlx_ptr, slice.img_ptr);
-///	end = clock();
-//	printf("destroying image: %f\n", (double) (end - start) / CLOCKS_PER_SEC);
+	draw_image_on_image(&screen->buffer, screen->scene.textures[texture], ray, line);
 }
 
 int	get_texture(void)

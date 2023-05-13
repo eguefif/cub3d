@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 08:19:00 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 08:06:07 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 11:47:09 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	move(t_screen *screen)
 	dy = screen->player.coord.y + -sin(direction) * screen->player.movement;
 	futur_position.x = dx;
 	futur_position.y = dy;
+	printf("elapsed time: %f\n", screen->elapsed);
 	if (!vertical_collision(screen->scene.map, futur_position))
 	{
 		screen->player.coord.x = dx;
@@ -62,6 +63,7 @@ static void	move(t_screen *screen)
 	{
 		screen->player.coord.y = dy;
 	}
+	printf("dx %f, dy %f\n", dx, dy);
 }
 
 static int	horizontal_collision(t_map map, t_point point)
