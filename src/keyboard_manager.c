@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 14:11:16 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 07:54:38 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 13:51:06 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	handle_pressedkey(int key, t_screen *screen)
 		exit(1);
 	}
 	else if (key == 119)
-		screen->player.movement = -speed;
-	else if (key == 115)
 		screen->player.movement = speed;
+	else if (key == 115)
+		screen->player.movement = -speed;
 	else if (key == 100)
 		screen->player.direction_movement = rot_speed;
 	else if (key == 97)
