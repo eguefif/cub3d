@@ -29,7 +29,9 @@ _SRC = cub3d.c \
 	   2d_model.c \
 	   player_movement.c \
 	   time_handler.c \
-	   init_textures.c
+	   init_textures.c \
+	   image_treatement.c \
+	   texture.c
 _OBJ = $(_SRC:.c=.o)
 _INC = cub3d.h parsing.h
 SDIR = ./src/
@@ -44,7 +46,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(DEBUG) $(OBJ) $(LIB) -o $@
 
-$(ODIR)%.o: $(SDIR)%.c 
+$(ODIR)%.o: $(SDIR)%.c include/cub3d.h
 	$(CC) $(CFLAGS) $(IDIR) -c $< -o $@
 
 .PHONY: clean fclean re

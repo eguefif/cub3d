@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 08:19:00 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 08:12:55 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 08:06:07 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,14 @@ static int	horizontal_collision(t_map map, t_point point)
 	t_point	bot_left;
 	t_point	bot_right;
 
-	top_left.x = point.x - 4;
-	top_left.y = point.y - 4;
-	top_right.x = point.x + 4;
-	top_right.y = point.y - 4;
-	bot_left.x = point.x - 4;
-	bot_left.y = point.y + 4;
-	bot_right.x = point.x + 4;
-	bot_right.y = point.y + 4;
+	top_left.x = point.x - PLAYER_SIZE;
+	top_left.y = point.y - PLAYER_SIZE;
+	top_right.x = point.x + PLAYER_SIZE;
+	top_right.y = point.y - PLAYER_SIZE;
+	bot_left.x = point.x - PLAYER_SIZE;
+	bot_left.y = point.y + PLAYER_SIZE;
+	bot_right.x = point.x + PLAYER_SIZE;
+	bot_right.y = point.y + PLAYER_SIZE;
 	if (check_for_wall(map, top_left) && check_for_wall(map, top_right))
 		return (1);
 	else if (check_for_wall(map, bot_right) && check_for_wall(map, bot_left))

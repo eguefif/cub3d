@@ -1,11 +1,11 @@
-R 1300 700
+R 1000 500
 NO ./Ressource/textures/north.xpm
 SO ./Ressource/textures/north.xpm
 WE ./Ressource/textures/east.xpm
 EA ./Ressource/textures/east.xpm
 S ./Ressource/sprites/candlebra.xpm
-C 0,0,0
-F 0,0,0
+C 131,200,131
+F 100,100,100
 111111111111
 100000001001
 10S010100001

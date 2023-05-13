@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:58:49 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 20:29:07 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 07:59:35 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static t_point	find_first_vertical(t_map, t_ray *ray);
 static t_point	find_first_horizontal(t_map, t_ray *ray);
+static void		get_vertical_offset_texture(t_ray *ray);
+static void		get_horizontal_offset_texture(t_ray *ray);
 
 void	get_dist_to_vertical_wall(t_map map, t_ray *ray)
 {
@@ -31,6 +33,7 @@ void	get_dist_to_vertical_wall(t_map map, t_ray *ray)
 		counter++;
 	}
 	ray->vertical_check.distance = fabs(ray->vertical_check.distance);
+	get_vertical_offset_texture(ray);
 }
 
 static t_point	find_first_vertical(t_map, t_ray *ray)
@@ -73,6 +76,7 @@ void	get_dist_to_horizontal_wall(t_map map, t_ray *ray)
 		counter++;
 	}
 	ray->horizontal_check.distance = fabs(ray->horizontal_check.distance);
+	get_horizontal_offset_texture(ray);
 }
 
 static t_point	find_first_horizontal(t_map, t_ray *ray)
@@ -97,4 +101,25 @@ static t_point	find_first_horizontal(t_map, t_ray *ray)
 	ray->d_depth = ray->dy / ray->sinus;
 	ray->dx = ray->d_depth * ray->cosinus;
 	return (check);
+}
+
+static void	get_vertical_offset_texture(t_ray *ray)
+{
+	//ray->vertical_check.offset = (int) ray->vertical_check.coord.y % SQUARE_SIZE;
+	if (ray->cosinus > 0)
+		ray->vertical_check.offset = (int) ray->vertical_check.coord.y % SQUARE_SIZE;
+	else
+		ray->vertical_check.offset = SQUARE_SIZE - ((int) 
+						ray->vertical_check.coord.y % SQUARE_SIZE);
+}
+
+static void	get_horizontal_offset_texture(t_ray *ray)
+{
+	//ray->horizontal_check.offset = ((int)
+	//						ray->horizontal_check.coord.x % SQUARE_SIZE);
+	if (ray->sinus > 0)
+		ray->horizontal_check.offset = SQUARE_SIZE - ((int)
+							ray->horizontal_check.coord.x % SQUARE_SIZE);
+	else
+		ray->horizontal_check.offset = (int) ray->horizontal_check.coord.x % SQUARE_SIZE;
 }
