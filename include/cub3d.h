@@ -6,15 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*   Updated: 2023/05/11 19:24:27 by eguefif          ###   ########.fr       */
-=======
-/*   Updated: 2023/05/11 19:35:35 by eguefif          ###   ########.fr       */
->>>>>>> texture
-=======
-/*   Updated: 2023/05/13 14:04:28 by eguefif          ###   ########.fr       */
->>>>>>> texture
+/*   Updated: 2023/05/13 14:17:06 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +25,8 @@
 # define MAX_MAP_WIDTH 500
 # define WINDOW_TITLE "Cub3d"
 # define FOV 60
-<<<<<<< HEAD
-# define SQUARE_SIZE 64
-=======
 # define SQUARE_SIZE 192
 # define PLAYER_SIZE 23
->>>>>>> texture
 # define NBR_TEXTURES 5
 # define NORTH 0
 # define SOUTH 1
