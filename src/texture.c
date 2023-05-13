@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 14:12:11 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 16:20:31 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void	draw_image_on_image(t_screen_buffer *dst,
 		cols = 0;
 		while (cols < RESCALE_WIDTH)
 		{
+			printf("scale %f row %d cols %d height %f, ray %d\n", scale_factor, row, cols,
+					line.wall_height, ray.nbr);
 			position_dst = (cols + ray.nbr) * dst->bits_per_pixel / 8 + (
 					((int) line.y_top + row) * dst->size_line);
 			position_src = (cols + src_x) * src.bits_per_pixel / 8 + (
@@ -54,7 +56,6 @@ static void	draw_image_on_image(t_screen_buffer *dst,
 		row++;
 	}
 }
-
 
 int	get_texture(t_ray ray)
 {
