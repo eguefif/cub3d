@@ -1,11 +1,20 @@
+<<<<<<< HEAD
 R 1300 700
+=======
+R 1000 500
+>>>>>>> texture
 NO ./Ressource/textures/north.xpm
 SO ./Ressource/textures/south.xpm
 WE ./Ressource/textures/west.xpm
 EA ./Ressource/textures/east.xpm
 S ./Ressource/sprites/candlebra.xpm
+<<<<<<< HEAD
 C 0,0,0
 F 0,0,0
+=======
+C 150,75,0
+F 200,200,200
+>>>>>>> texture
 111111111111
 100000001001
 10S010100001

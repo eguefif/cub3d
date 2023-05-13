@@ -7,9 +7,13 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*   Updated: 2023/05/11 19:24:27 by eguefif          ###   ########.fr       */
 =======
 /*   Updated: 2023/05/11 19:35:35 by eguefif          ###   ########.fr       */
+>>>>>>> texture
+=======
+/*   Updated: 2023/05/13 14:04:28 by eguefif          ###   ########.fr       */
 >>>>>>> texture
 /*                                                                            */
 /* ************************************************************************** */
@@ -25,16 +29,25 @@
 # include "get_next_line.h"
 # include "ft_printf.h"
 # include "time.h"
+# define RESCALE_WIDTH 1
 # define MAX_MAP_WIDTH 500
 # define WINDOW_TITLE "Cub3d"
 # define FOV 60
+<<<<<<< HEAD
 # define SQUARE_SIZE 64
+=======
+# define SQUARE_SIZE 192
+# define PLAYER_SIZE 23
+>>>>>>> texture
 # define NBR_TEXTURES 5
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
 # define SPRITE 4
+# define SPEED 5
+# define ROT_SPEED 3
+# define FPS 30
 
 
 typedef struct s_resolution
@@ -95,6 +108,7 @@ typedef struct s_raycast_line
 	double	x;
 	double	y_top;
 	double	y_bot;
+	double	wall_height;
 }			t_raycast_line;
 
 typedef struct s_screen_buffer
@@ -133,6 +147,7 @@ typedef struct s_screen
 {
 	void					*mlx_ptr;
 	void					*window;
+	double					elapsed;
 	t_player				player;
 	t_scene					scene;
 	t_screen_buffer			buffer;
@@ -142,6 +157,7 @@ typedef struct s_screen
 typedef struct s_ray_check
 {
 	t_point	coord;
+	double	offset;
 	double	distance;
 }			t_ray_check;
 
@@ -153,9 +169,7 @@ typedef struct s_ray
 	double		sinus;
 	double		dx;
 	double		dy;
-	double		depth;
 	double		d_depth;
-	double		wall_distance;
 	int			max_step;
 	t_point		check_position;
 	t_player	player;
@@ -178,7 +192,7 @@ int		handle_releasedkey(int key, t_screen *screen);
 int		rendering_game(t_screen *screen);
 int		rendering_game_2d(t_screen *screen);
 void	handle_movement(t_screen *screen);
-void	check_time(clock_t start_time);
+void	check_time(t_screen *screen);
 
 // graphic functions using mlx in buffering and draw_basic_figure
 void	swap_frame_screen(t_screen *screen);
@@ -186,6 +200,9 @@ void	draw_raycasting_vertical_line(t_screen *screen,
 			t_raycast_line line);
 void	draw_pixel_on_buffer(t_screen *screen, t_point point);
 int		get_color(t_screen *screen, t_color color);
+
+// Textures functions
+void	draw_texture_line(t_screen *screen, t_ray ray, t_raycast_line line);
 
 // Ray functions in raycasting files
 void		init_ray(t_ray *ray, t_screen *screen);
@@ -197,8 +214,12 @@ int			calculate_distance(t_point player, t_point wall);
 t_ray_check	get_shorter_ray(t_ray_check ray1, t_ray_check ray2);
 void		calculate_wall_distance(t_screen *screen, t_ray *ray);
 
+// Image processing functions
+t_image	create_image(t_screen *screen, int width, int height);
+
 // Error functions in error files
 void	handle_error(char *message);
+
 // Functions for 2d model
 void	draw_2d_model(t_screen *screen);
 void	draw_2d_ray(t_screen *screen, t_ray ray);

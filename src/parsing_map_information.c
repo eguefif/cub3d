@@ -6,7 +6,11 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/11 19:07:22 by eguefif          ###   ########.fr       */
+=======
+/*   Updated: 2023/05/11 20:16:04 by eguefif          ###   ########.fr       */
+>>>>>>> texture
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +40,13 @@ static void	looking_for_player(t_screen *screen)
 			cell = screen->scene.map.map[row_counter][cols_counter];
 			if (is_player(cell))
 			{
+<<<<<<< HEAD
 				screen->player.coord.x = cols_counter * SQUARE_SIZE + 15;
 				screen->player.coord.y = row_counter * SQUARE_SIZE + 15;
+=======
+				screen->player.coord.x = cols_counter * SQUARE_SIZE + PLAYER_SIZE + 1;
+				screen->player.coord.y = row_counter * SQUARE_SIZE + PLAYER_SIZE + 1;
+>>>>>>> texture
 				screen->player.direction = get_direction(cell);
 				screen->player.direction_movement = 0;
 				screen->player.movement = 0;

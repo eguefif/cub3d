@@ -1,12 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
+/* ************************************************************************** */ /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 07:58:25 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 08:06:56 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/12 17:37:58 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +21,7 @@ int	rendering_game(t_screen *screen)
 {
 	t_raycast_line	line;
 	t_ray			ray;
-	clock_t			start_time;
 
-	start_time = clock();
 	ray.nbr = 0;
 	handle_movement(screen);
 	while (ray.nbr < screen->scene.resolution.width)
@@ -33,11 +30,12 @@ int	rendering_game(t_screen *screen)
 		init_ray(&ray, screen);
 		calculate_wall_distance(screen, &ray);
 		correct_fishbowl_dist(screen, &ray);
-		calculate_vertical_line(screen, ray.wall_distance, &line);
+		calculate_vertical_line(screen, ray.wall_point.distance, &line);
 		draw_raycasting_vertical_line(screen, line);
-		ray.nbr ++;
+		draw_texture_line(screen, ray, line);
+		ray.nbr += RESCALE_WIDTH;
 	}
-	check_time(start_time);
+	check_time(screen);
 	swap_frame_screen(screen);
 	return (0);
 }
@@ -45,9 +43,7 @@ int	rendering_game(t_screen *screen)
 int	rendering_game_2d(t_screen *screen)
 {
 	t_ray			ray;
-	clock_t			start_time;
 
-	start_time = clock();
 	handle_movement(screen);
 	ray.nbr = 0;
 	draw_2d_model(screen);
@@ -58,7 +54,6 @@ int	rendering_game_2d(t_screen *screen)
 		draw_2d_ray(screen, ray);
 		ray.nbr ++;
 	}
-	check_time(start_time);
 	swap_frame_screen(screen);
 	return (0);
 }
@@ -71,7 +66,7 @@ static void	correct_fishbowl_dist(t_screen *screen, t_ray *ray)
 	subsequent_angle = screen->raycasting_param.angle_subsequent_rays;
 	angle = (double)(-FOV / 2 + (subsequent_angle * ray->nbr));
 	angle = (double) degree_to_radian(angle);
-	ray->wall_distance = ray->wall_distance * cos(angle);
+	ray->wall_point.distance = ray->wall_point.distance * cos(angle);
 }
 
 static void	calculate_vertical_line(t_screen *screen, int distance,
@@ -96,14 +91,16 @@ static void	calculate_projection_line(t_screen *screen, t_raycast_line *line,
 		projection_line = projection_var / distance;
 	else
 		projection_line = 0;
-	if (projection_line > screen->scene.resolution.height)
+	if (projection_line >= screen->scene.resolution.height)
 	{
 		line->y_top = 0;
 		line->y_bot = screen->scene.resolution.height - 1;
+		line->wall_height = screen->scene.resolution.height;
 	}
 	else
 	{
 		line->y_top = center - projection_line / 2;
 		line->y_bot = center + projection_line / 2;
+		line->wall_height = projection_line;
 	}
 }
