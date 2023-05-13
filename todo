@@ -10,3 +10,9 @@ Get the slice of texture:
 BUG:
 	When I get to close to the wall, it weirdly change.
 	Investigate the way I calculate the height size;
+	The problem is related to the one above. When I get cloer, there is less ray on the wall so the image extend.
+
+NEXT:
+	-> sprite
+	-> Floor
+	-> Ceiling
