@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 12:31:50 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 14:12:11 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 static void	draw_image_on_image(t_screen_buffer *dst,
 		t_image src, t_ray ray, t_raycast_line line);
-int		get_texture(void);
+int		get_texture(t_ray ray);
 
 void	draw_texture_line(t_screen *screen, t_ray ray, t_raycast_line line)
 {
 	int		texture;
 
-	texture = get_texture();
+	texture = get_texture(ray);
 	draw_image_on_image(&screen->buffer, screen->scene.textures[texture], ray, line);
 }
 
@@ -56,7 +56,20 @@ static void	draw_image_on_image(t_screen_buffer *dst,
 }
 
 
-int	get_texture(void)
+int	get_texture(t_ray ray)
 {
-	return (0);
+	int		map_x;
+	int		map_y;
+
+	map_x = floor(ray.wall_point.coord.x / SQUARE_SIZE) * SQUARE_SIZE;
+	map_y = floor(ray.wall_point.coord.y / SQUARE_SIZE) * SQUARE_SIZE;
+	if (ray.wall_point.coord.x == map_x)
+		return (WEST);
+	else if (ray.wall_point.coord.x == map_x + SQUARE_SIZE)
+		return (EAST);
+	else if (ray.wall_point.coord.y == map_y)
+		return (NORTH);
+	else if (ray.wall_point.coord.y == map_y + SQUARE_SIZE)
+		return (SOUTH);
+	return (SOUTH);
 }

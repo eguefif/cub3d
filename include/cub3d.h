@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 14:02:08 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 14:04:28 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define WINDOW_TITLE "Cub3d"
 # define FOV 60
 # define SQUARE_SIZE 192
-# define NBR_TEXTURES 5
 # define PLAYER_SIZE 23
+# define NBR_TEXTURES 5
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2

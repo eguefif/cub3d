@@ -1,7 +1,7 @@
 R 1000 500
 NO ./Ressource/textures/north.xpm
-SO ./Ressource/textures/north.xpm
-WE ./Ressource/textures/east.xpm
+SO ./Ressource/textures/south.xpm
+WE ./Ressource/textures/west.xpm
 EA ./Ressource/textures/east.xpm
 S ./Ressource/sprites/candlebra.xpm
 C 150,75,0
