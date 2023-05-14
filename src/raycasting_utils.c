@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 08:15:55 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 13:25:47 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/14 07:36:06 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,13 @@ void	calculate_wall_distance(t_screen *screen, t_ray *ray)
 	get_dist_to_horizontal_wall(screen->scene.map, ray);
 	ray->wall_point = get_shorter_ray(
 			ray->vertical_check, ray->horizontal_check);
+}
+
+t_ray_check	get_shorter_ray(t_ray_check ray1, t_ray_check ray2)
+{
+	if (ray1.distance <= ray2.distance && ray1.distance > 0)
+		return (ray1);
+	else if (ray2.distance > 0)
+		return (ray2);
+	return (ray1);
 }

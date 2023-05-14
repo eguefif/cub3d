@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 17:39:28 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/14 07:43:48 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,25 @@
 # define PROJECTION_PLANE_DST 350
 # define SQUARE_SIZE 192
 # define PLAYER_SIZE 20
-# define NBR_TEXTURES 5
+# define NBR_TEXTURES 6
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
 # define SPRITE 4
+# define SKY 5
 # define SPEED 5
 # define ROT_SPEED 3
 # define FPS 30
+
+typedef struct s_texture_param
+{
+	int		position_dst;
+	int		position_src;
+	int		src_x;
+	int		src_y;
+	double	new_height;
+}			t_texture_param;
 
 
 typedef struct s_resolution
@@ -149,6 +159,18 @@ typedef struct s_ray_check
 	double	offset;
 	double	distance;
 }			t_ray_check;
+
+typedef struct s_wall
+{
+	t_point	coord;
+	int		texture;
+	int		distance;
+	int		height;
+	double	texture_offset;
+	double	subsurface_x;
+	double	subsurface_y;
+	double	subsurface_height;
+}			t_wall;
 
 typedef struct s_ray
 {
