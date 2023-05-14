@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 16:25:34 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 17:39:28 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define FOV 66
 # define PROJECTION_PLANE_DST 350
 # define SQUARE_SIZE 192
-# define PLAYER_SIZE 25
+# define PLAYER_SIZE 20
 # define NBR_TEXTURES 5
 # define NORTH 0
 # define SOUTH 1
@@ -160,6 +160,7 @@ typedef struct s_ray
 	double		dy;
 	double		d_depth;
 	int			max_step;
+	double		wall_height;
 	t_point		check_position;
 	t_player	player;
 	t_ray_check	vertical_check;
