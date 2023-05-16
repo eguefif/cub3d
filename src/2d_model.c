@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 21:19:16 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 20:23:04 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/13 16:55:06 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 static void	draw_2d_player(t_screen *screen);
 static void	draw_tile(int row, int cols, t_screen *screen);
 static void	draw_line(t_screen *screen, t_point player, int length);
+
+int	rendering_game_2d(t_screen *screen)
+{
+	t_ray			ray;
+
+	handle_movement(screen);
+	ray.nbr = 0;
+	draw_2d_model(screen);
+	while (ray.nbr < screen->scene.resolution.width)
+	{
+		init_ray(&ray, screen);
+		calculate_wall_distance(screen, &ray);
+		draw_2d_ray(screen, ray);
+		ray.nbr ++;
+	}
+	swap_frame_screen(screen);
+	return (0);
+}
 
 void	draw_2d_model(t_screen *screen)
 {
