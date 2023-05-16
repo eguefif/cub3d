@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 10:19:10 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 18:25:09 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/14 08:50:34 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_textures(t_screen *screen)
 	int		counter;
 
 	counter = 0;
-	while (counter < NBR_TEXTURES)
+	while (counter < NBR_TEXTURES - 1)
 	{
 		init_texture(screen->mlx_ptr, &screen->scene.textures[counter]);
 		counter++;

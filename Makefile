@@ -8,7 +8,6 @@ DEBUG = -g -ggdb3
 
 _SRC = cub3d.c \
 	   error_management.c \
-	   development_tools.c \
 	   parsing.c \
 	   parsing_type_identifier.c \
 	   parsing_map.c \
@@ -21,17 +20,21 @@ _SRC = cub3d.c \
 	   terminate.c \
 	   keyboard_manager.c \
 	   rendering.c \
-	   rendering_utils.c \
 	   draw_basic_figures.c \
 	   buffering.c \
-	   raycasting.c \
+	   raycasting_horizontal.c \
+	   raycasting_vertical.c \
 	   raycasting_utils.c \
-	   2d_model.c \
 	   player_movement.c \
 	   time_handler.c \
 	   init_textures.c \
 	   image_treatement.c \
-	   texture.c
+	   texture.c \
+	   wall.c \
+	   list.c \
+	   ceiling.c \
+	   floor.c \
+	   color.c
 _OBJ = $(_SRC:.c=.o)
 _INC = cub3d.h parsing.h
 SDIR = ./src/

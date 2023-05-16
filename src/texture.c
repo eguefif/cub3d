@@ -6,69 +6,63 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 18:02:24 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/16 11:24:39 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <time.h>
 
-static void	draw_image_on_image(t_screen *screen,
-		t_image src, t_ray ray, t_raycast_line line);
-int		get_texture(t_ray ray);
-static void	draw_big_wall(t_screen *screen, t_image src, t_ray ray, double scale_factor, int buffer_y);
-static void	draw_small_wall(t_screen *screen, t_image src, t_ray ray, double scale_factor, int buffer_y);
+static void	draw_image_on_image(t_screen *screen, t_image src, t_object *wall);
+static void	get_texture(t_object *wall);
+static void	draw_big_wall(t_screen *screen, t_image src, t_object *wall);
+static void	draw_small_wall(t_screen *screen, t_image src, t_object *wall);
 
-void	draw_texture_line(t_screen *screen, t_ray ray, t_raycast_line line)
+void	draw_texture_line(t_screen *screen, t_object *wall)
 {
-	int		texture;
-
-	texture = get_texture(ray);
-	draw_image_on_image(screen, screen->scene.textures[texture], ray, line);
+	get_texture(wall);
+	draw_image_on_image(screen, screen->scene.textures[wall->texture], wall);
 }
 
-static void	draw_image_on_image(t_screen *screen,
-		t_image src, t_ray ray, t_raycast_line line)
+static void	draw_image_on_image(t_screen *screen, t_image src, t_object *wall)
 {
-	double	scale_factor;
-
-	scale_factor = (double) ray.wall_height /src.height;
-	if (ray.wall_height >= screen->scene.resolution.height)
-		draw_big_wall(screen, src, ray, scale_factor, line.y_top);
+	wall->scale_factor = (double) wall->height /src.height;
+	if (wall->height >= screen->scene.resolution.height)
+		draw_big_wall(screen, src, wall);
 	else
-		draw_small_wall(screen, src, ray, scale_factor, line.y_top);
+		draw_small_wall(screen, src, wall);
 }
 
-static void	draw_big_wall(t_screen *screen, t_image src, t_ray ray, double scale_factor, int buffer_y)
+static void	draw_big_wall(t_screen *screen, t_image src, t_object *wall)
 {
-	t_texture_param	param;
 	int		row;
 	int		cols;
+	int		position_dst;
+	int		position_src;
 
-	param.new_height = src.height * (
-			screen->scene.resolution.height / ray.wall_height);
-	param.src_y = (double) src.height / 2 - floor(param.new_height / 2);
-	param.src_x = (int) ray.wall_point.offset;
+	wall->subsurface_height= src.height * (
+			screen->scene.resolution.height / wall->height);
+	wall->subsurface.y= (double) src.height / 2 - floor(wall->subsurface_height / 2);
+	wall->subsurface.x= (int) wall->offset;
 	row = 0;
 	while (row < screen->scene.resolution.height)
 	{
 		cols = 0;
 		while (cols < RESCALE_WIDTH)
 		{
-			param.position_dst = (cols + ray.nbr) * screen->buffer.bits_per_pixel / 8 + (
-					((int) buffer_y+ row) * screen->buffer.size_line);
-			param.position_src = (cols + param.src_x) * src.bits_per_pixel / 8 + (
-					floor(row / scale_factor + param.src_y) * src.size_line);
-			memcpy((screen->buffer.start_area_ptr + param.position_dst),
-					src.start_area_ptr + param.position_src,
-					4 * sizeof(char));
+			position_dst = (cols + wall->buffer_coord.x) * screen->buffer.bits_per_pixel / 8 + (
+					((int) wall->buffer_coord.y + row) * screen->buffer.size_line);
+			position_src = (cols + wall->subsurface.x) * src.bits_per_pixel / 8 + (
+					floor(row / wall->scale_factor + wall->subsurface.y) * src.size_line);
+			copy_byte_to_image(screen->buffer.start_area_ptr + position_dst,
+					src.start_area_ptr + position_src);
 			cols++;
 		}
 		row++;
 	}
 }
 
-static void	draw_small_wall(t_screen *screen, t_image src, t_ray ray, double scale_factor, int buffer_y)
+static void	draw_small_wall(t_screen *screen, t_image src, t_object *wall)
 {
 	int		row;
 	int		cols;
@@ -77,38 +71,41 @@ static void	draw_small_wall(t_screen *screen, t_image src, t_ray ray, double sca
 	int		position_src;
 
 	row = 0;
-	src_x = (int) ray.wall_point.offset;
-	while (row < ray.wall_height)
+	src_x = (int) wall->offset;
+	while (row < wall->height)
 	{
 		cols = 0;
 		while (cols < RESCALE_WIDTH)
 		{
-			position_dst = (cols + ray.nbr) * screen->buffer.bits_per_pixel / 8 + (
-					((int) buffer_y + row) * screen->buffer.size_line);
+			position_dst = (cols + wall->buffer_coord.x) * screen->buffer.bits_per_pixel / 8 + (
+					((int) wall->buffer_coord.y + row) * screen->buffer.size_line);
 			position_src = (cols + src_x) * src.bits_per_pixel / 8 + (
-					floor(row / scale_factor) * src.size_line);
-			memcpy((screen->buffer.start_area_ptr + position_dst), src.start_area_ptr + position_src,
-					4 * sizeof(char));
+					floor(row / wall->scale_factor) * src.size_line);
+			copy_byte_to_image(screen->buffer.start_area_ptr + position_dst,
+					src.start_area_ptr + position_src);
 			cols++;
 		}
 		row++;
 	}
 }
 
-int	get_texture(t_ray ray)
+void	get_texture(t_object *wall)
 {
 	int		map_x;
 	int		map_y;
 
-	map_x = floor(ray.wall_point.coord.x / SQUARE_SIZE) * SQUARE_SIZE;
-	map_y = floor(ray.wall_point.coord.y / SQUARE_SIZE) * SQUARE_SIZE;
-	if (ray.wall_point.coord.x == map_x)
-		return (WEST);
-	else if (ceil(ray.wall_point.coord.x) == map_x + SQUARE_SIZE)
-		return (EAST);
-	else if (ray.wall_point.coord.y == map_y)
-		return (NORTH);
-	else if (ray.wall_point.coord.y == map_y + SQUARE_SIZE)
-		return (SOUTH);
-	return (SOUTH);
+	map_x = floor(wall->coord.x / SQUARE_SIZE) * SQUARE_SIZE;
+	map_y = floor(wall->coord.y / SQUARE_SIZE) * SQUARE_SIZE;
+	wall->texture = -1;
+	if (wall->coord.x == map_x + SQUARE_SIZE - 0.0001 || map_x == 0)
+		wall->texture = WEST;
+	else if (wall->coord.x == map_x && map_x != 0)
+		wall->texture = EAST;
+	else if (wall->coord.y == map_y + SQUARE_SIZE - 0.0001 || map_y == 0)
+		wall->texture = NORTH;
+	else if (wall->coord.y == map_y && map_y != 0)
+		wall->texture = SOUTH;
+	if (wall->texture == -1)
+		wall->texture = SOUTH;
+	//printf("%d %d %f %f texture %d\n", map_x, map_y, wall->coord.x, wall->coord.y, wall->texture);
 }
