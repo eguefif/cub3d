@@ -32,14 +32,16 @@ static void	get_walls_object(t_screen *screen, t_list **head)
 {
 	t_ray		ray;
 	t_object	*wall;
+	double		angle;
 
 	ray.nbr = 0;
-	while (ray.nbr < screen->scene.resolution.width)
+	angle = (double) screen->player.direction - FOV / 2 + 0.00001;
+	while (ray.nbr < screen->raycasting_param.max_ray_nbr)
 	{
-		init_ray(&ray, screen);
+		init_ray(&ray, screen, &angle);
 		wall = calculate_wall_projection(screen, &ray);
 		append_to_list(wall, head);
-		ray.nbr += RESCALE_WIDTH;
+		ray.nbr++;
 	}
 }
 

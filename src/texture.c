@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/16 12:56:43 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/16 17:21:52 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static void	draw_big_wall(t_screen *screen, t_image src, t_object *wall)
 	wall->subsurface_height= src.height * (
 			screen->scene.resolution.height / wall->height);
 	wall->subsurface.y= (double) src.height / 2 - floor(wall->subsurface_height / 2);
-	wall->subsurface.x= (int) wall->offset;
+	wall->subsurface.x= (int) wall->offset * screen->raycasting_param.scale;
 	row = 0;
 	while (row < screen->scene.resolution.height)
 	{
 		cols = 0;
-		while (cols < RESCALE_WIDTH)
+		while (cols < screen->raycasting_param.scale)
 		{
 			position_dst = (cols + wall->buffer_coord.x) * screen->buffer.bits_per_pixel / 8 + (
 					((int) wall->buffer_coord.y + row) * screen->buffer.size_line);
@@ -66,20 +66,22 @@ static void	draw_small_wall(t_screen *screen, t_image src, t_object *wall)
 {
 	int		row;
 	int		cols;
-	int		src_x;
+	//int		src_x;
 	int		position_dst;
 	int		position_src;
 
 	row = 0;
-	src_x = (int) wall->offset;
+	//src_x = (int) wall->offset;
+	wall->subsurface.x= (int) wall->offset * screen->raycasting_param.scale;
+	//printf("%f\n", wall->offset);
 	while (row < wall->height)
 	{
 		cols = 0;
-		while (cols < RESCALE_WIDTH)
+		while (cols < screen->raycasting_param.scale)
 		{
 			position_dst = (cols + wall->buffer_coord.x) * screen->buffer.bits_per_pixel / 8 + (
 					((int) wall->buffer_coord.y + row) * screen->buffer.size_line);
-			position_src = (cols + src_x) * src.bits_per_pixel / 8 + (
+			position_src = (cols + wall->subsurface.x) * src.bits_per_pixel / 8 + (
 					floor(row / wall->scale_factor) * src.size_line);
 			copy_byte_to_image(screen->buffer.start_area_ptr + position_dst,
 					src.start_area_ptr + position_src);

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/16 12:58:02 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/16 17:22:28 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define SPRITE 4
 # define SKY 5
 # define SPEED 5
-# define ROT_SPEED 3
+# define ROT_SPEED 1
 # define FPS 30
 
 
@@ -53,6 +53,15 @@ typedef struct s_color
 	int					blue;
 	unsigned int		rgb;
 }			t_color;
+
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+	t_color	color;
+}			t_point;
+
 
 typedef struct s_map
 {
@@ -73,6 +82,12 @@ typedef struct s_image
 	char	*start_area_ptr;
 }			t_image;
 
+typedef struct s_sprite
+{
+	t_point	coord;
+	int		texture;
+}			t_sprite;
+
 typedef struct s_scene
 {
 	t_resolution	resolution;
@@ -81,15 +96,9 @@ typedef struct s_scene
 	t_color			wall;
 	t_map			map;
 	t_image			textures[NBR_TEXTURES];
-	//t_sprite		sprites[50];
+	t_sprite		sprites[50];
+	int				sprite_count;
 }					t_scene;
-
-typedef struct s_point
-{
-	double	x;
-	double	y;
-	t_color	color;
-}			t_point;
 
 typedef struct s_screen_buffer
 {
@@ -108,20 +117,15 @@ typedef struct s_player
 	double	movement;
 }			t_player;
 
-typedef struct s_projection_plane
-{
-	int		width;
-	int		height;
-	int		player_plane_distance;
-}			t_projection_plane;
-
 typedef struct s_raycasting_parameter
 {
-	double					field_of_view;
-	t_projection_plane		projection_plane;
-	double					angle_subsequent_rays;
-	double					projection_var;
-}							t_raycasting_parameter;
+	double	field_of_view;
+	double	half_fov;
+	double	max_ray_nbr;
+	double	delta_angle;
+	double	projection_var;
+	double	scale;
+}			t_raycasting_parameter;
 
 typedef struct s_screen
 {
@@ -138,6 +142,7 @@ typedef struct s_object
 {
 	t_point	coord;
 	t_point	buffer_coord;
+	double	ray_angle;
 	int		texture;
 	double	height;
 	double	distance;
@@ -202,7 +207,7 @@ void	copy_byte_to_image(char *dst, char *src);
 void	draw_texture_line(t_screen *screen, t_object *wall);
 
 // Ray functions in raycasting files
-void		init_ray(t_ray *ray, t_screen *screen);
+void		init_ray(t_ray *ray, t_screen *screen, double *angle);
 void		get_dist_to_vertical_wall(t_map map, t_ray *ray);
 void		get_dist_to_horizontal_wall(t_map map, t_ray *ray);
 int			check_for_wall(t_map map, t_point point);
@@ -210,6 +215,7 @@ double		degree_to_radian(double angle);
 int			calculate_distance(t_point player, t_point wall);
 void		get_shorter_distance(t_object *distance1, t_object *distance2, t_object *wall);
 t_object	*calculate_wall_projection(t_screen *screen, t_ray *ray);
+void		correct_fishbowl_effect(t_screen *screen, t_object *wall);
 
 // Sprites
 void	get_sprites(t_screen *screen, t_list **objects);

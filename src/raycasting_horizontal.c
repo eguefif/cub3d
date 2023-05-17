@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 19:58:49 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/15 20:54:32 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/16 17:19:29 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,5 @@ static void	get_horizontal_offset_texture(t_ray *ray)
 							ray->horizontal_check.coord.x % SQUARE_SIZE);
 	else
 		ray->horizontal_check.offset = (int) ray->horizontal_check.coord.x % SQUARE_SIZE;
+	printf("fct: %f\n", ray->horizontal_check.offset);
 }

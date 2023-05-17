@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 08:15:55 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/15 20:58:47 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/16 17:09:59 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,10 @@ void	get_shorter_distance(t_object *distance1, t_object *distance2, t_object *wa
 	}
 }
 
-void	init_ray(t_ray *ray, t_screen *screen)
+void	init_ray(t_ray *ray, t_screen *screen, double *angle)
 {
-	int		dir;
-	double	subseq_angle;
-	double	half_fov;
-
-	subseq_angle = screen->raycasting_param.angle_subsequent_rays;
-	dir = screen->player.direction;
-	half_fov = FOV / 2;
-	ray->angle = (double) dir - half_fov + subseq_angle * ray->nbr;
-	if (ray->angle > 360)
-		ray->angle = ray->angle - 360;
+	*angle += screen->raycasting_param.delta_angle;
+	ray->angle = *angle;
 	ray->player = screen->player;
 	ray->cosinus = cos(degree_to_radian(ray->angle));
 	ray->sinus = sin(degree_to_radian(ray->angle));
