@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 10:19:10 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/16 12:57:08 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/18 17:57:46 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_textures(t_screen *screen)
 	int		counter;
 
 	counter = 0;
-	while (counter < NBR_TEXTURES - 1)
+	while (counter < NBR_TEXTURES)
 	{
 		get_texture(screen->mlx_ptr, &screen->scene.textures[counter]);
 		counter++;
@@ -32,4 +32,5 @@ static void	get_texture(void *mlx_ptr, t_image *image)
 			&image->width, &image->height);
 	image->start_area_ptr = mlx_get_data_addr(image->img_ptr,
 			&image->bits_per_pixel, &image->size_line, &image->endian);
+	image->ratio = (double) image->width / image->height;
 }

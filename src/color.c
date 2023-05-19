@@ -6,16 +6,16 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 10:38:27 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/16 10:45:46 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:30:00 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	get_red(unsigned int	rgba)
+int	get_red(unsigned int rgba)
 {
 	return ((rgba >> 16) & 0xFF);
 }
 
-int	get_blue(unsigned int	rgba)
+int	get_blue(unsigned int rgba)
 {
 	return (rgba & 0xFF);
 }
@@ -25,7 +25,7 @@ int	get_green(unsigned int rgba)
 	return ((rgba >> 8) & 0xff);
 }
 
-int get_alpha(unsigned int rgba)
+int	get_alpha(unsigned int rgba)
 {
 	return ((rgba >> 24) & 0xff);
 }

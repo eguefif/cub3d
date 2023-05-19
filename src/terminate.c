@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:48:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/13 14:29:54 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:44:16 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	map_memory_cleanup(t_map map)
 static void	destroy_images(t_screen *screen)
 {
 	int	counter;
+
 	counter = 0;
 	while (counter < NBR_TEXTURES)
 	{
-		mlx_destroy_image(screen->mlx_ptr, screen->scene.textures[counter].img_ptr);
+		mlx_destroy_image(
+			screen->mlx_ptr, screen->scene.textures[counter].img_ptr);
 		counter++;
 	}
 }
-

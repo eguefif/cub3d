@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/16 17:22:28 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:25:18 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define PROJECTION_PLANE_DST 350
 # define SQUARE_SIZE 192
 # define PLAYER_SIZE 20
-# define NBR_TEXTURES 6
+# define NBR_TEXTURES 5
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
@@ -38,7 +38,6 @@
 # define SPEED 5
 # define ROT_SPEED 1
 # define FPS 30
-
 
 typedef struct s_resolution
 {
@@ -54,14 +53,12 @@ typedef struct s_color
 	unsigned int		rgb;
 }			t_color;
 
-
 typedef struct s_point
 {
 	double	x;
 	double	y;
 	t_color	color;
 }			t_point;
-
 
 typedef struct s_map
 {
@@ -76,6 +73,7 @@ typedef struct s_image
 	char	path[50];
 	int		width;
 	int		height;
+	double	ratio;
 	int		bits_per_pixel;
 	int		size_line;
 	int		endian;
@@ -86,6 +84,7 @@ typedef struct s_sprite
 {
 	t_point	coord;
 	int		texture;
+	double	shift;
 }			t_sprite;
 
 typedef struct s_scene
@@ -142,9 +141,11 @@ typedef struct s_object
 {
 	t_point	coord;
 	t_point	buffer_coord;
+	char	type;
 	double	ray_angle;
 	int		texture;
 	double	height;
+	double	width;
 	double	distance;
 	double	texture_offset;
 	t_point	subsurface;
@@ -189,7 +190,8 @@ void	init_textures(t_screen *screen);
 void	parsing_map_information(t_screen *screen);
 int		terminate_game(t_screen *screen);
 
-// Main loop function in keyboard_manager.c rendering.c and player_movement.c time.c
+// Main loop function in keyboard_manager.c
+// rendering.c and player_movement.c time.c
 int		handle_pressedkey(int key, t_screen *screen);
 int		handle_releasedkey(int key, t_screen *screen);
 int		rendering_game(t_screen *screen);
@@ -204,18 +206,21 @@ int		get_color(t_screen *screen, t_color color);
 void	copy_byte_to_image(char *dst, char *src);
 
 // Textures functions in texture.c
-void	draw_texture_line(t_screen *screen, t_object *wall);
+void	draw_objects(t_screen *screen, t_object *wall);
+void	sort_objects_by_distance(t_list *first, t_list *last);
+t_list	*last_node(t_list *head);
 
 // Ray functions in raycasting files
-void		init_ray(t_ray *ray, t_screen *screen, double *angle);
-void		get_dist_to_vertical_wall(t_map map, t_ray *ray);
-void		get_dist_to_horizontal_wall(t_map map, t_ray *ray);
-int			check_for_wall(t_map map, t_point point);
-double		degree_to_radian(double angle);
-int			calculate_distance(t_point player, t_point wall);
-void		get_shorter_distance(t_object *distance1, t_object *distance2, t_object *wall);
+void	init_ray(t_ray *ray, t_screen *screen, double *angle);
+void	get_dist_to_vertical_wall(t_map map, t_ray *ray);
+void	get_dist_to_horizontal_wall(t_map map, t_ray *ray);
+int		check_for_wall(t_map map, t_point point);
+double	degree_to_radian(double angle);
+int		calculate_distance(t_point player, t_point wall);
+void	get_shorter_distance(t_object *distance1,
+		t_object *distance2, t_object *wall);
+void	correct_fishbowl_effect(t_screen *screen, t_object *wall);
 t_object	*calculate_wall_projection(t_screen *screen, t_ray *ray);
-void		correct_fishbowl_effect(t_screen *screen, t_object *wall);
 
 // Sprites
 void	get_sprites(t_screen *screen, t_list **objects);
@@ -226,10 +231,10 @@ void	draw_floor(t_screen *screen);
 
 //color handling
 unsigned int	get_rgb_code(int alpha, int red, int green, int blue);
-int				get_red(unsigned int rgba);
-int				get_green(unsigned int rgba);
-int				get_alpha(unsigned int rgba);
-int				get_blue(unsigned int rgba);
+int		get_red(unsigned int rgba);
+int		get_green(unsigned int rgba);
+int		get_alpha(unsigned int rgba);
+int		get_blue(unsigned int rgba);
 
 // Image processing functions
 t_image	create_image(t_screen *screen, int width, int height);

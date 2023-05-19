@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 08:15:55 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/16 17:09:59 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:37:33 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ int	calculate_distance(t_point player, t_point wall)
 
 double	degree_to_radian(double angle)
 {
-	return ((double) angle * 2 * M_PI / 360);
+	return ((double) angle * M_PI / 180);
 }
 
-void	get_shorter_distance(t_object *distance1, t_object *distance2, t_object *wall)
+void	get_shorter_distance(t_object *distance1,
+		t_object *distance2, t_object *wall)
 {
 	if (distance1->distance <= distance2->distance && distance1->distance > 0)
 	{

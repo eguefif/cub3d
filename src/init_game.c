@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:36:41 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/11 10:19:37 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:44:39 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h" 
@@ -23,7 +23,8 @@ void	init_game(t_screen *screen, char *path, int two_d)
 	if (two_d == 1)
 	{
 		screen->scene.resolution.width = screen->scene.map.width * SQUARE_SIZE;
-		screen->scene.resolution.height = screen->scene.map.height * SQUARE_SIZE;
+		screen->scene.resolution.height = (
+				screen->scene.map.height * SQUARE_SIZE);
 	}
 	init_graphic(screen);
 	init_color(screen);

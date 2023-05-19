@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:32:45 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/14 11:52:24 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:41:26 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ static t_point	find_first_vertical(t_map, t_ray *ray)
 		ray->dx = -SQUARE_SIZE;
 		check.x = player_map_pos.x - 0.0001;
 	}
-	ray->vertical_check.distance = (check.x - ray->player.coord.x) / ray->cosinus;
-	check.y = ray->player.coord.y + ray->vertical_check.distance * ray->sinus;
+	ray->vertical_check.distance = (
+			check.x - ray->player.coord.x) / ray->cosinus;
+	check.y = ray->player.coord.y + (
+			ray->vertical_check.distance * ray->sinus);
 	ray->d_depth = ray->dx / ray->cosinus;
 	ray->dy = ray->d_depth * ray->sinus;
 	return (check);
@@ -61,9 +63,9 @@ static t_point	find_first_vertical(t_map, t_ray *ray)
 static void	get_vertical_offset_texture(t_ray *ray)
 {
 	if (ray->cosinus > 0)
-		ray->vertical_check.offset = (int) ray->vertical_check.coord.y % SQUARE_SIZE;
+		ray->vertical_check.offset = (
+				(int) ray->vertical_check.coord.y % SQUARE_SIZE);
 	else
-		ray->vertical_check.offset = SQUARE_SIZE - ((int) 
-						ray->vertical_check.coord.y % SQUARE_SIZE);
+		ray->vertical_check.offset = SQUARE_SIZE - ((int)
+				ray->vertical_check.coord.y % SQUARE_SIZE);
 }
-

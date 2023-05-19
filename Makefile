@@ -34,7 +34,9 @@ _SRC = cub3d.c \
 	   list.c \
 	   ceiling.c \
 	   floor.c \
-	   color.c
+	   color.c \
+	   sprite.c \
+	   sorting_objects.c
 _OBJ = $(_SRC:.c=.o)
 _INC = cub3d.h parsing.h
 SDIR = ./src/

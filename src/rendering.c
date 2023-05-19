@@ -1,11 +1,12 @@
-/* ************************************************************************** */ /*                                                                            */
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 07:58:25 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/12 17:37:58 by eguefif          ###   ########.fr       */
+/*   Created: 2023/05/19 10:42:58 by eguefif           #+#    #+#             */
+/*   Updated: 2023/05/19 10:43:24 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +22,12 @@ int	rendering_game(t_screen *screen)
 	handle_movement(screen);
 	head = NULL;
 	get_walls_object(screen, &head);
-	//get_sprites(screen, &head);
+	get_sprites(screen, &head);
+	sort_objects_by_distance(head, last_node(head));
 	render_objects(screen, head);
 	check_time(screen);
 	swap_frame_screen(screen);
+	destroy_list(head);
 	return (0);
 }
 
@@ -53,11 +56,8 @@ static void	render_objects(t_screen *screen, t_list *head)
 	current = head;
 	while (current != NULL)
 	{
-		//draw_ceiling(screen);
-		//draw_floor(screen);
 		object = current->object;
-		draw_texture_line(screen, object);
+		draw_objects(screen, object);
 		current = current->next;
 	}
-	destroy_list(head);
 }

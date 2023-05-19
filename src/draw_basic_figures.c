@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 14:57:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/16 11:24:58 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 10:42:35 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	draw_rectangle(t_screen *screen, int width, int height, t_point coord)
 
 void	copy_byte_to_image(char *dst, char *src)
 {
-	unsigned	pixel;
+	unsigned int	pixel;
 
-	pixel = *(unsigned int*) src;
+	pixel = *(unsigned int *) src;
 	if (get_alpha(pixel) <= 0)
-		*(unsigned int*) dst = pixel;
+		*(unsigned int *) dst = pixel;
 }
