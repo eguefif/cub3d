@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 14:57:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 10:42:35 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 11:45:56 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static int	is_position_outside(int position, t_screen *screen)
 
 	size = screen->buffer.size_line * screen->scene.resolution.height;
 	if (position > size || position < 0)
+	{
+		printf("alert: outside of the buffer");
 		return (1);
+	}
 	return (0);
 }
 

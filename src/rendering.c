@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:42:58 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 10:43:24 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 12:29:23 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void	render_objects(t_screen *screen, t_list *head)
 	t_list		*current;
 	t_object	*object;
 
+	draw_ceiling(screen);
+	draw_floor(screen);
 	current = head;
 	while (current != NULL)
 	{

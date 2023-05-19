@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:36:41 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 10:44:39 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 15:24:55 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h" 
@@ -16,21 +16,23 @@ static void	init_graphic(t_screen *screen);
 static void	init_color(t_screen *screen);
 int			get_color(t_screen *screen, t_color color);
 
-void	init_game(t_screen *screen, char *path, int two_d)
+void	init_game(t_screen *screen, char *path)
 {
 	parsing_scene(&screen->scene, path);
 	parsing_map_information(screen);
-	if (two_d == 1)
-	{
-		screen->scene.resolution.width = screen->scene.map.width * SQUARE_SIZE;
-		screen->scene.resolution.height = (
-				screen->scene.map.height * SQUARE_SIZE);
-	}
 	init_graphic(screen);
 	init_color(screen);
 	init_textures(screen);
 	init_screen_buffer(screen);
 	init_raycasting(screen);
+}
+
+void	init_mouse(t_screen *screen)
+{
+	screen->mouse.x = screen->scene.resolution.width / 2;
+	screen->mouse.y = screen->scene.resolution.width / 2;
+	mlx_mouse_move(screen->mlx_ptr, screen->window,
+			screen->mouse.x, screen->mouse.y);
 }
 
 void	init_graphic(t_screen *screen)

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:48:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 10:44:16 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 14:38:32 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	terminate_game(t_screen *screen)
 {
 	map_memory_cleanup(screen->scene.map);
 	destroy_images(screen);
+	mlx_mouse_show(screen->mlx_ptr, screen->window);
 	mlx_destroy_window(screen->mlx_ptr, screen->window);
 	return (0);
 }

@@ -7,6 +7,7 @@ RM = rm -f
 DEBUG = -g -ggdb3
 
 _SRC = cub3d.c \
+	   mouse_handler.c \
 	   error_management.c \
 	   parsing.c \
 	   parsing_type_identifier.c \

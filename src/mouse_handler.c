@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   floor.c                                            :+:      :+:    :+:   */
+/*   mouse_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 21:12:21 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 11:46:23 by eguefif          ###   ########.fr       */
+/*   Created: 2023/05/19 14:39:10 by eguefif           #+#    #+#             */
+/*   Updated: 2023/05/19 14:43:27 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_floor(t_screen *screen)
+int	mouse_manager(int button, int x, int y, t_screen *screen)
 {
-	int		width;
-	int		height;
-	t_point	location;
+	static int	x_pos = 0;
 
-	location.color = screen->scene.floor;
-	width = screen->scene.resolution.width;
-	height = screen->scene.resolution.height / 2 - 1;
-	location.x = 0;
-	location.y = screen->scene.resolution.height / 2 + 1;
-	draw_rectangle(screen, width, height, location);
+	if (x_pos == 0)
+		x_pos = x;
+	else
+		printf("%d button %d, (%d, %d)\n", screen->scene.resolution.width, button, x, y);
+	return (0);
 }

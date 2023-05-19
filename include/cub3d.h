@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 10:25:18 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 15:27:52 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define PROJECTION_PLANE_DST 350
 # define SQUARE_SIZE 192
 # define PLAYER_SIZE 20
-# define NBR_TEXTURES 5
+# define NBR_TEXTURES 6
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
@@ -113,6 +113,7 @@ typedef struct s_player
 	t_point	coord;
 	double	direction;
 	double	direction_movement;
+	double	lateral_movement;
 	double	movement;
 }			t_player;
 
@@ -135,6 +136,7 @@ typedef struct s_screen
 	t_scene					scene;
 	t_screen_buffer			buffer;
 	t_raycasting_parameter	raycasting_param;
+	t_point					mouse;
 }							t_screen;
 
 typedef struct s_object
@@ -183,10 +185,11 @@ void	append_to_list(t_object *object, t_list **head);
 void	destroy_list(t_list *first);
 
 //Init and terminating functions in parsing_*.c, init*.c and terminate.c
-void	init_game(t_screen *screen, char *path, int two_d);
+void	init_game(t_screen *screen, char *path);
 void	init_raycasting(t_screen *screen);
 void	init_screen_buffer(t_screen *screen);
 void	init_textures(t_screen *screen);
+void	init_mouse(t_screen *screen);
 void	parsing_map_information(t_screen *screen);
 int		terminate_game(t_screen *screen);
 
@@ -194,6 +197,7 @@ int		terminate_game(t_screen *screen);
 // rendering.c and player_movement.c time.c
 int		handle_pressedkey(int key, t_screen *screen);
 int		handle_releasedkey(int key, t_screen *screen);
+int	mouse_manager(int button, int x, int y, t_screen *screen);
 int		rendering_game(t_screen *screen);
 void	handle_movement(t_screen *screen);
 void	check_time(t_screen *screen);

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 10:45:40 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/19 11:34:51 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	looking_for_sprite(t_screen *screen)
 static void	add_sprite(t_screen *screen, int x, int y, int count, char cell)
 {
 	screen->scene.sprites[count].coord.x = y * SQUARE_SIZE;
-	screen->scene.sprites[count].coord.y = x * SQUARE_SIZE + 100;
+	screen->scene.sprites[count].coord.y = x * SQUARE_SIZE;
 	get_sprite_texture(cell, &screen->scene.sprites[count]);
 }
 
