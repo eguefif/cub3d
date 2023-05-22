@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 15:27:52 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/22 11:07:41 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define MAX_MAP_WIDTH 500
 # define WINDOW_TITLE "Cub3d"
 # define FOV 66
-# define PROJECTION_PLANE_DST 350
+# define PROJECTION_PLANE_DST 450
 # define SQUARE_SIZE 192
-# define PLAYER_SIZE 20
+# define PLAYER_SIZE 7
 # define NBR_TEXTURES 6
 # define NORTH 0
 # define SOUTH 1
@@ -137,6 +137,7 @@ typedef struct s_screen
 	t_screen_buffer			buffer;
 	t_raycasting_parameter	raycasting_param;
 	t_point					mouse;
+	int						pause;
 }							t_screen;
 
 typedef struct s_object
@@ -219,6 +220,7 @@ void	init_ray(t_ray *ray, t_screen *screen, double *angle);
 void	get_dist_to_vertical_wall(t_map map, t_ray *ray);
 void	get_dist_to_horizontal_wall(t_map map, t_ray *ray);
 int		check_for_wall(t_map map, t_point point);
+int		check_for_collision(t_map map, t_point point);
 double	degree_to_radian(double angle);
 int		calculate_distance(t_point player, t_point wall);
 void	get_shorter_distance(t_object *distance1,

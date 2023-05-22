@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:48:27 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/18 17:38:53 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/22 09:21:18 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,18 @@ static void	define_buffer_coordinate(t_screen *screen, t_object *wall)
 
 void	get_texture(t_object *wall)
 {
-	int		map_x;
-	int		map_y;
+	double	map_x;
+	double	map_y;
 
 	map_x = floor(wall->coord.x / SQUARE_SIZE) * SQUARE_SIZE;
 	map_y = floor(wall->coord.y / SQUARE_SIZE) * SQUARE_SIZE;
 	wall->texture = -1;
-	if (wall->coord.x == map_x + SQUARE_SIZE - 0.0001 || map_x == 0)
-		wall->texture = WEST;
-	else if (wall->coord.x == map_x && map_x != 0)
+	if (wall->coord.x == map_x && map_x != 0)
 		wall->texture = EAST;
-	else if (wall->coord.y == map_y + SQUARE_SIZE - 0.0001 || map_y == 0)
+	else if ((ceil(wall->coord.y) == ceil(map_y + SQUARE_SIZE - 0.0001)) || map_y == 0)
 		wall->texture = NORTH;
 	else if (wall->coord.y == map_y && map_y != 0)
 		wall->texture = SOUTH;
+	else if ((ceil(wall->coord.x) == ceil(map_x + SQUARE_SIZE - 0.0001)) || map_x == 0)
+		wall->texture = WEST;
 }

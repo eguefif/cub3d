@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.c                                          :+:      :+:    :+:   */
+/*   drawing_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 10:36:41 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/22 11:03:53 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,26 @@ static void	draw_sprite(t_screen *screen, t_image src, t_object *object)
 	int		position_dst;
 
 	object->scale_factor = (double) object->height / src.height;
-	object->width = object->height * src.ratio;
 	row = 0;
 	while (row < object->height)
 	{
 		cols = 0;
 		while (cols < object->width)
 		{
-			position_dst = (cols + object->buffer_coord.x) * (
+			position_dst = (cols + (int)object->buffer_coord.x) * (
 					screen->buffer.bits_per_pixel / 8) + (
 					((int) object->buffer_coord.y + row) * (
 						screen->buffer.size_line));
-			position_src = floor(
+			position_src = (int) floor(
 					cols / object->scale_factor) * (
 					src.bits_per_pixel / 8) + (
 					floor(row / object->scale_factor) * src.size_line);
+			if (cols + object->buffer_coord.x >= screen->scene.resolution.width)
+				break ;
+			if (position_dst >= screen->buffer.size_line * screen->scene.resolution.height)
+				break ;
+			if (position_dst < 0)
+				break ;
 			copy_byte_to_image(screen->buffer.start_area_ptr + position_dst,
 				src.start_area_ptr + position_src);
 			cols++;
@@ -112,16 +117,16 @@ static void	draw_small_object(t_screen *screen, t_image src, t_object *object)
 	int		position_src;
 
 	row = 0;
-	object->subsurface.x = (int) object->offset * (
+	object->subsurface.x =  object->offset * (
 			screen->raycasting_param.scale);
 	while (row < object->height)
 	{
 		cols = 0;
 		while (cols < screen->raycasting_param.scale)
 		{
-			position_dst = (cols + object->buffer_coord.x) * (
+			position_dst = (int)(cols + object->buffer_coord.x) * (
 					screen->buffer.bits_per_pixel / 8) + (
-					((int) object->buffer_coord.y + row) * (
+					floor(object->buffer_coord.y + row) * (
 						screen->buffer.size_line));
 			position_src = floor(cols + object->subsurface.x) * (
 					src.bits_per_pixel / 8) + (

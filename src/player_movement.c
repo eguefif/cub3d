@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 08:19:00 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 15:41:36 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/22 11:05:56 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,11 @@ static void	move(t_screen *screen)
 	dx_check.y = screen->player.coord.y;
 	dy_check.x = screen->player.coord.x;
 	dy_check.y = screen->player.coord.y + dy * PLAYER_SIZE;
-	if (!check_for_wall(screen->scene.map, dx_check))
+	if (!check_for_collision(screen->scene.map, dx_check))
 	{
 		screen->player.coord.x += dx;
 	}
-	if (!check_for_wall(screen->scene.map, dy_check))
+	if (!check_for_collision(screen->scene.map, dy_check))
 	{
 		screen->player.coord.y += dy;
 	}
@@ -139,11 +139,11 @@ static void	move_lateral(t_screen *screen)
 	dx_check.y = screen->player.coord.y;
 	dy_check.x = screen->player.coord.x;
 	dy_check.y = screen->player.coord.y + dy * PLAYER_SIZE;
-	if (!check_for_wall(screen->scene.map, dx_check))
+	if (!check_for_collision(screen->scene.map, dx_check))
 	{
 		screen->player.coord.x += dx;
 	}
-	if (!check_for_wall(screen->scene.map, dy_check))
+	if (!check_for_collision(screen->scene.map, dy_check))
 	{
 		screen->player.coord.y += dy;
 	}

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:15:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 10:28:47 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/22 10:49:40 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	build_sprite_objects(t_screen *screen, t_sprite sprite,
 			t_list **objects);
 void	calculate_projection_height(t_screen *screen,
-			t_sprite sprite, t_object *sprite_line);
+			t_sprite sprite, t_object *sprite_line, double delta);
 double	get_delta_angle(t_player player, t_sprite sprite);
 
 void	get_sprites(t_screen *screen, t_list **objects)
@@ -41,23 +41,28 @@ void	build_sprite_objects(t_screen *screen,
 	sprite_object = (t_object *) malloc(sizeof(t_object));
 	delta = get_delta_angle(screen->player, sprite);
 	delta_rays = delta / screen->raycasting_param.delta_angle;
-	sprite_object->buffer_coord.x = screen->scene.resolution.width / 2 + (
-			delta_rays * screen->raycasting_param.scale);
-	sprite_object->buffer_coord.y = screen->scene.resolution.height / 2 - (
-			sprite_object->height + sprite_object->height * sprite.shift);
-	calculate_projection_height(screen, sprite, sprite_object);
+	calculate_projection_height(screen, sprite, sprite_object, delta_rays);
+	sprite_object->buffer_coord.x = (screen->raycasting_param.max_ray_nbr / 2 + 
+			delta_rays) * screen->raycasting_param.scale;
+	sprite_object->buffer_coord.y = screen->scene.resolution.height / 2 - 
+			sprite_object->height + sprite_object->height * sprite.shift;
 	sprite_object->texture = sprite.texture;
 	sprite_object->type = 's';
-	if (sprite_object->buffer_coord.x >= 0 && (
+	sprite_object->distance = sprite_object->distance - 50;
+	sprite_object->width = sprite_object->height * screen->scene.textures[sprite.texture].ratio;
+	sprite_object->buffer_coord.x = sprite_object->buffer_coord.x - sprite_object->width / 2;
+	if ((sprite_object->buffer_coord.x + screen->scene.textures[sprite.texture].width) >= 0 && (
 			sprite_object->buffer_coord.x < screen->scene.resolution.width))
 		append_to_list(sprite_object, objects);
 }
 
 void	calculate_projection_height(t_screen *screen,
-		t_sprite sprite, t_object *sprite_line)
+		t_sprite sprite, t_object *sprite_line, double delta)
 {
 	sprite_line->distance = calculate_distance(
 			screen->player.coord, sprite.coord);
+	sprite_line->distance = sprite_line->distance * cos(degree_to_radian(
+		(double)((FOV / 2 + delta) * screen->raycasting_param.delta_angle)));
 	sprite_line->height = screen->raycasting_param.projection_var / (
 			sprite_line->distance);
 }

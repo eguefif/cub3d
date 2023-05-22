@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 08:15:55 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 10:37:33 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/22 11:12:27 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,27 @@ int	check_for_wall(t_map map, t_point point)
 	if (is_point_in_map(map, x, y))
 	{
 		if (map.map[y][x] == '1')
-		{
 			return (1);
-		}
 	}
 	else
-	{
 		return (1);
+	return (0);
+}
+
+int	check_for_collision(t_map map, t_point point)
+{
+	int		x;
+	int		y;
+
+	x = (int) floor(point.x / SQUARE_SIZE);
+	y = (int) floor(point.y / SQUARE_SIZE);
+	if (is_point_in_map(map, x, y))
+	{
+		if (map.map[y][x] != '0')
+			return (1);
 	}
+	else
+		return (1);
 	return (0);
 }
 

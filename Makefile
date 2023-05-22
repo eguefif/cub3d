@@ -30,7 +30,7 @@ _SRC = cub3d.c \
 	   time_handler.c \
 	   init_textures.c \
 	   image_treatement.c \
-	   texture.c \
+	   drawing_texture.c \
 	   wall.c \
 	   list.c \
 	   ceiling.c \

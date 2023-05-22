@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/19 11:34:51 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/22 11:13:16 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	looking_for_player(t_screen *screen);
 static void	looking_for_sprite(t_screen *screen);
-static void	add_sprite(t_screen *screen, int x, int y, int count, char cell);
 static int	is_player(char c);
 static int	get_direction(char c);
 static void	get_sprite_texture(char cell, t_sprite *sprite);
@@ -45,6 +44,7 @@ static void	looking_for_player(t_screen *screen)
 				screen->player.direction = get_direction(cell);
 				screen->player.direction_movement = 0;
 				screen->player.movement = 0;
+				screen->scene.map.map[row_counter][cols_counter] = '0';
 				return ;
 			}
 			cols_counter++;
@@ -92,8 +92,9 @@ static void	looking_for_sprite(t_screen *screen)
 			{
 				if (sprite_count < 50)
 				{
-					add_sprite(screen, cols_counter,
-						row_counter, sprite_count, cell);
+					screen->scene.sprites[sprite_count].coord.x = cols_counter * SQUARE_SIZE + SQUARE_SIZE / 2;
+					screen->scene.sprites[sprite_count].coord.y = row_counter * SQUARE_SIZE + SQUARE_SIZE / 2;
+					get_sprite_texture(cell, &screen->scene.sprites[sprite_count]);
 					sprite_count++;
 				}
 			}
@@ -104,18 +105,11 @@ static void	looking_for_sprite(t_screen *screen)
 	screen->scene.sprite_count = sprite_count;
 }
 
-static void	add_sprite(t_screen *screen, int x, int y, int count, char cell)
-{
-	screen->scene.sprites[count].coord.x = y * SQUARE_SIZE;
-	screen->scene.sprites[count].coord.y = x * SQUARE_SIZE;
-	get_sprite_texture(cell, &screen->scene.sprites[count]);
-}
-
 static void	get_sprite_texture(char cell, t_sprite *sprite)
 {
 	if (ft_strchr("2", cell))
 	{
 		sprite->texture = SPRITE;
-		sprite->shift = 0.8;
+		sprite->shift = 0.75;
 	}
 }
