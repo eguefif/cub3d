@@ -1,9 +1,11 @@
 R 1000 700
+IM 5
 NO ./Ressource/textures/north.xpm
 SO ./Ressource/textures/south.xpm
 WE ./Ressource/textures/west.xpm
 EA ./Ressource/textures/east.xpm
-S ./Ressource/sprites/candlebra.xpm
+S ./Ressource/sprites/static_sprites/candlebra.xpm 25
+AS_GREEN ./Ressource/sprites/animated_sprites/green/ 4 25
 SK ./Ressource/textures/Background.xpm
 C 150,75,0
 F 30,30,30
@@ -11,7 +13,7 @@ F 30,30,30
 10000000001001
 10001002001001
 10N01011000001
-10001000000101
+10301000000101
 11111111111101
 11111111111101
 11111111111101

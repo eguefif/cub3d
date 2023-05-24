@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:36:41 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 10:43:21 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/22 17:23:12 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "cub3d.h" 
@@ -23,6 +23,8 @@ void	init_game(t_screen *screen, char *path)
 	init_graphic(screen);
 	init_color(screen);
 	init_textures(screen);
+	init_animated_sprites(screen);
+	init_sprites(screen);
 	init_screen_buffer(screen);
 	init_raycasting(screen);
 	screen->pause = 0;

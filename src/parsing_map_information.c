@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 11:13:16 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/22 17:36:13 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,39 @@ static void	looking_for_sprite(t_screen *screen);
 static int	is_player(char c);
 static int	get_direction(char c);
 static void	get_sprite_texture(char cell, t_sprite *sprite);
+static void	looking_for_animated_sprite(t_screen *screen);
 
 void	parsing_map_information(t_screen *screen)
 {
 	looking_for_player(screen);
 	looking_for_sprite(screen);
+	looking_for_animated_sprite(screen);
+}
+static void	looking_for_animated_sprite(t_screen *screen)
+{
+	int		cols;
+	int		rows;
+	int		counter;
+
+	rows = 0;
+	counter = 0;
+	while (rows < screen->scene.map.height)
+	{
+		cols = 0;
+		while (cols < screen->scene.map.width)
+		{
+
+			if (screen->scene.map.map[rows][cols] == '3')
+			{
+				screen->scene.anim_sprites[counter].coord.x = cols * SQUARE_SIZE + SQUARE_SIZE / 2;
+				screen->scene.anim_sprites[counter].coord.y = rows * SQUARE_SIZE + SQUARE_SIZE / 2;
+				counter++;
+			}
+			cols++;
+		}
+		rows++;
+	}
+	screen->scene.anim_count = counter;
 }
 
 static void	looking_for_player(t_screen *screen)
@@ -109,7 +137,7 @@ static void	get_sprite_texture(char cell, t_sprite *sprite)
 {
 	if (ft_strchr("2", cell))
 	{
-		sprite->texture = SPRITE;
+		sprite->texture = 0;
 		sprite->shift = 0.75;
 	}
 }

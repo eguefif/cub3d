@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:15:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 10:49:40 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/24 15:37:02 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	build_sprite_objects(t_screen *screen,
 
 	sprite_object = (t_object *) malloc(sizeof(t_object));
 	delta = get_delta_angle(screen->player, sprite);
+	if (delta > FOV / 2 || delta < -FOV / 2)
+		return ;
 	delta_rays = delta / screen->raycasting_param.delta_angle;
 	calculate_projection_height(screen, sprite, sprite_object, delta_rays);
 	sprite_object->buffer_coord.x = (screen->raycasting_param.max_ray_nbr / 2 + 
@@ -48,10 +50,10 @@ void	build_sprite_objects(t_screen *screen,
 			sprite_object->height + sprite_object->height * sprite.shift;
 	sprite_object->texture = sprite.texture;
 	sprite_object->type = 's';
-	sprite_object->distance = sprite_object->distance - 50;
-	sprite_object->width = sprite_object->height * screen->scene.textures[sprite.texture].ratio;
+	sprite_object->distance = sprite_object->distance * cos(degree_to_radian(delta));
+	sprite_object->width = sprite_object->height * screen->scene.sprite_images[sprite.texture]->ratio;
 	sprite_object->buffer_coord.x = sprite_object->buffer_coord.x - sprite_object->width / 2;
-	if ((sprite_object->buffer_coord.x + screen->scene.textures[sprite.texture].width) >= 0 && (
+	if (sprite_object->buffer_coord.x + sprite_object->width > 0 && (
 			sprite_object->buffer_coord.x < screen->scene.resolution.width))
 		append_to_list(sprite_object, objects);
 }

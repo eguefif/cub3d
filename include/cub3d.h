@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 11:07:41 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/24 15:30:06 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@
 # define PROJECTION_PLANE_DST 450
 # define SQUARE_SIZE 192
 # define PLAYER_SIZE 7
-# define NBR_TEXTURES 6
+# define NBR_TEXTURES 5
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
-# define SPRITE 4
-# define SKY 5
+# define SKY 4
 # define SPEED 5
 # define ROT_SPEED 1
 # define FPS 30
+# define ANIMATION_TIMING (1 / 30)
 
 typedef struct s_resolution
 {
@@ -70,7 +70,7 @@ typedef struct s_map
 typedef struct s_image
 {
 	void	*img_ptr;
-	char	path[50];
+	char	path[100];
 	int		width;
 	int		height;
 	double	ratio;
@@ -79,6 +79,20 @@ typedef struct s_image
 	int		endian;
 	char	*start_area_ptr;
 }			t_image;
+
+typedef struct s_animation
+{
+	double	timing;
+	char	path[50];
+	int		images_nbr;
+	int		img_index;
+}			t_animation;
+
+typedef struct s_animated_sprite
+{
+	t_point	coord;
+	int		animation;
+}			t_anim_sprite;
 
 typedef struct s_sprite
 {
@@ -95,7 +109,12 @@ typedef struct s_scene
 	t_color			wall;
 	t_map			map;
 	t_image			textures[NBR_TEXTURES];
+	t_animation		animations[50];
+	t_image			*sprite_images[50];
 	t_sprite		sprites[50];
+	t_anim_sprite	anim_sprites[50];	
+	int				images_sprite_count;
+	int				anim_count;
 	int				sprite_count;
 }					t_scene;
 
@@ -192,6 +211,8 @@ void	init_screen_buffer(t_screen *screen);
 void	init_textures(t_screen *screen);
 void	init_mouse(t_screen *screen);
 void	parsing_map_information(t_screen *screen);
+void	init_animated_sprites(t_screen *screen);
+void	init_sprites(t_screen *screen);
 int		terminate_game(t_screen *screen);
 
 // Main loop function in keyboard_manager.c
@@ -230,6 +251,10 @@ t_object	*calculate_wall_projection(t_screen *screen, t_ray *ray);
 
 // Sprites
 void	get_sprites(t_screen *screen, t_list **objects);
+void	get_animated_sprites(t_screen *screen, t_list **objects);
+void	build_sprite_objects(t_screen *screen, t_sprite sprite,
+			t_list **objects);
+t_sprite	build_animated_sprite(t_anim_sprite anim_sprite);
 
 // Ceiling and floor
 void	draw_ceiling(t_screen *screen);
@@ -244,6 +269,7 @@ int		get_blue(unsigned int rgba);
 
 // Image processing functions
 t_image	create_image(t_screen *screen, int width, int height);
+void	create_image_from_path(void *mlx, t_image *image);
 
 // Error functions in error files
 void	handle_error(char *message);

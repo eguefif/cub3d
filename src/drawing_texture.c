@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 11:03:53 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/24 15:34:15 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
 static void	draw_wall(t_screen *screen, t_image src, t_object *object);
 static void	draw_big_object(t_screen *screen, t_image src, t_object *object);
 static void	draw_small_object(t_screen *screen, t_image src, t_object *object);
-static void	draw_sprite(t_screen *screen, t_image src, t_object *object);
+static void	draw_sprite(t_screen *screen, t_image *src, t_object *object);
 
 void	draw_objects(t_screen *screen, t_object *object)
 {
 	if (object->type == 'w')
 		draw_wall(screen, screen->scene.textures[object->texture], object);
 	else if (object->type == 's')
-		draw_sprite(screen, screen->scene.textures[object->texture], object);
+		draw_sprite(screen, screen->scene.sprite_images[object->texture], object);
 }
 
-static void	draw_sprite(t_screen *screen, t_image src, t_object *object)
+static void	draw_sprite(t_screen *screen, t_image *src, t_object *object)
 {
 	int		cols;
 	int		row;
 	int		position_src;
 	int		position_dst;
 
-	object->scale_factor = (double) object->height / src.height;
+	object->scale_factor = (double) object->height / src->height;
 	row = 0;
 	while (row < object->height)
 	{
@@ -46,16 +46,19 @@ static void	draw_sprite(t_screen *screen, t_image src, t_object *object)
 						screen->buffer.size_line));
 			position_src = (int) floor(
 					cols / object->scale_factor) * (
-					src.bits_per_pixel / 8) + (
-					floor(row / object->scale_factor) * src.size_line);
-			if (cols + object->buffer_coord.x >= screen->scene.resolution.width)
-				break ;
-			if (position_dst >= screen->buffer.size_line * screen->scene.resolution.height)
-				break ;
-			if (position_dst < 0)
+					src->bits_per_pixel / 8) + (
+					floor(row / object->scale_factor) * src->size_line);
+			if (cols + object->buffer_coord.x >= screen->scene.resolution.width || (
+						object->buffer_coord.x + cols < 0))
+			{
+				cols++;
+				continue ;
+			}
+			if (position_dst >= screen->buffer.size_line * screen->scene.resolution.height || (
+						position_dst < 0))
 				break ;
 			copy_byte_to_image(screen->buffer.start_area_ptr + position_dst,
-				src.start_area_ptr + position_src);
+				src->start_area_ptr + position_src);
 			cols++;
 		}
 		row++;

@@ -7,6 +7,7 @@ RM = rm -f
 DEBUG = -g -ggdb3
 
 _SRC = cub3d.c \
+	   animated_sprites.c \
 	   mouse_handler.c \
 	   error_management.c \
 	   parsing.c \
