@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 17:36:13 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/24 20:42:59 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,13 @@ static void	looking_for_animated_sprite(t_screen *screen)
 
 			if (screen->scene.map.map[rows][cols] == '3')
 			{
-				screen->scene.anim_sprites[counter].coord.x = cols * SQUARE_SIZE + SQUARE_SIZE / 2;
-				screen->scene.anim_sprites[counter].coord.y = rows * SQUARE_SIZE + SQUARE_SIZE / 2;
+				screen->scene.anim_sprites[counter].coord.x = (
+						cols * SQUARE_SIZE + SQUARE_SIZE / 2);
+				screen->scene.anim_sprites[counter].coord.y = (
+						rows * SQUARE_SIZE + SQUARE_SIZE / 2);
+				screen->scene.anim_sprites[counter].shift = 1;
+				screen->scene.anim_sprites[counter].current_img_index = 0;
+				screen->scene.anim_sprites[counter].animation = 0;
 				counter++;
 			}
 			cols++;

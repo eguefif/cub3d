@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/24 15:30:06 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/24 20:39:37 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define SPEED 5
 # define ROT_SPEED 1
 # define FPS 30
-# define ANIMATION_TIMING (1 / 30)
+# define ANIMATION_TIMING 0.05
 
 typedef struct s_resolution
 {
@@ -90,9 +90,12 @@ typedef struct s_animation
 
 typedef struct s_animated_sprite
 {
-	t_point	coord;
-	int		animation;
-}			t_anim_sprite;
+	t_point		coord;
+	int			animation;
+	int			current_img_index;
+	int			shift;
+	double		time;
+}				t_anim_sprite;
 
 typedef struct s_sprite
 {
@@ -254,7 +257,8 @@ void	get_sprites(t_screen *screen, t_list **objects);
 void	get_animated_sprites(t_screen *screen, t_list **objects);
 void	build_sprite_objects(t_screen *screen, t_sprite sprite,
 			t_list **objects);
-t_sprite	build_animated_sprite(t_anim_sprite anim_sprite);
+t_sprite	build_animated_sprite(t_screen *screen, t_anim_sprite anim_sprite);
+void	update_animated_sprite(t_scene scene, t_anim_sprite *anim_sprite);
 
 // Ceiling and floor
 void	draw_ceiling(t_screen *screen);

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 10:19:10 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/24 15:31:46 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/05/24 17:27:04 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ void	init_animated_sprites(t_screen *screen)
 static void	get_animated_sprite_images(t_scene *scene, t_animation *animation)
 {
 	int		*counter;
+	int		total_image;
 
 	counter = &scene->images_sprite_count;
-	while (*counter < *counter + animation->images_nbr)
+	total_image = *counter + animation->images_nbr;
+	while (*counter < total_image)
 	{
 		scene->sprite_images[*counter] = (t_image *) malloc(sizeof(t_image));
 		sprintf(scene->sprite_images[*counter]->path, "%s%d.xpm", animation->path, *counter);
