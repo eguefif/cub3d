@@ -14,15 +14,21 @@
 void	get_animated_sprites(t_screen *screen, t_list **head)
 {
 	int			counter;
+	int			animation_number;
+	int			current_image;
 	t_sprite	sprite;
 
 	counter = 0;
+	image_number = 0;
+	current_image = 0;
 	while (counter < screen->scene.anim_count)
 	{
+		animation_number = screen->scene.anim_sprite[counter].animation;
 		update_animated_sprite(screen->scene,
 			&screen->scene.anim_sprites[counter]);
-		sprite = build_animated_sprite(screen,
-				screen->scene.anim_sprites[counter]);
+		current_image = screen->scene.anim_sprites[counter].current_img_index;
+		sprite = screen->scene.animations[image_number].sprites[current_image];
+		sprite.image.shift = screen->scene.animations[animation_number].shift;
 		build_sprite_objects(screen, sprite, head);
 		counter++;
 	}
@@ -47,16 +53,4 @@ void	update_animated_sprite(t_scene scene, t_anim_sprite *anim_sprite)
 			anim_sprite->current_img_index = 0;
 		anim_sprite->time = (double) clock() / CLOCKS_PER_SEC;
 	}
-}
-
-t_sprite	build_animated_sprite(t_screen *screen, t_anim_sprite anim_sprite)
-{
-	t_sprite	sprite;
-
-	sprite.coord = anim_sprite.coord;
-	sprite.shift = anim_sprite.shift;
-	sprite.texture = (
-			screen->scene.animations[anim_sprite.animation].img_index + (
-				anim_sprite.current_img_index));
-	return (sprite);
 }

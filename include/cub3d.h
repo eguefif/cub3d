@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/24 20:39:37 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/01 20:23:27 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,29 +80,46 @@ typedef struct s_image
 	char	*start_area_ptr;
 }			t_image;
 
+typedef struct s_sprite
+{
+	t_point	coord;
+	t_image	image;
+	double	shift;
+}			t_sprite;
+
+typedef struct s_item
+{
+	t_point	coord;
+	int		image_number;
+}			t_item;
+
 typedef struct s_animation
 {
-	double	timing;
-	char	path[50];
-	int		images_nbr;
-	int		img_index;
-}			t_animation;
+	double		timing;
+	char		path[50];
+	t_sprite	sprites[10];
+	double		shift;
+}				t_animation;
 
 typedef struct s_animated_sprite
 {
 	t_point		coord;
 	int			animation;
 	int			current_img_index;
-	int			shift;
 	double		time;
 }				t_anim_sprite;
 
-typedef struct s_sprite
+typedef struct s_npc
 {
-	t_point	coord;
-	int		texture;
-	double	shift;
-}			t_sprite;
+	t_anim_sprite	walk;
+	t_anim_sprite	idle;
+	t_anim_sprite	attack;
+	t_anim_sprite	pain;
+	t_anim_sprite	death;
+	t_point			position;
+	int				life;
+	int				aim_skill;
+}					t_npc;
 
 typedef struct s_scene
 {
@@ -112,13 +129,14 @@ typedef struct s_scene
 	t_color			wall;
 	t_map			map;
 	t_image			textures[NBR_TEXTURES];
-	t_animation		animations[50];
-	t_image			*sprite_images[50];
+	t_npc			ennemies[50];
+	t_item			items[50]
 	t_sprite		sprites[50];
+	t_animation		animations[50];
 	t_anim_sprite	anim_sprites[50];	
 	int				images_sprite_count;
 	int				anim_count;
-	int				sprite_count;
+	int				items_count;
 }					t_scene;
 
 typedef struct s_screen_buffer
@@ -211,10 +229,10 @@ void	destroy_list(t_list *first);
 void	init_game(t_screen *screen, char *path);
 void	init_raycasting(t_screen *screen);
 void	init_screen_buffer(t_screen *screen);
-void	init_textures(t_screen *screen);
+void	init_wall_textures(t_screen *screen);
 void	init_mouse(t_screen *screen);
 void	parsing_map_information(t_screen *screen);
-void	init_animated_sprites(t_screen *screen);
+void	init_animations(t_screen *screen);
 void	init_sprites(t_screen *screen);
 int		terminate_game(t_screen *screen);
 
@@ -259,6 +277,9 @@ void	build_sprite_objects(t_screen *screen, t_sprite sprite,
 			t_list **objects);
 t_sprite	build_animated_sprite(t_screen *screen, t_anim_sprite anim_sprite);
 void	update_animated_sprite(t_scene scene, t_anim_sprite *anim_sprite);
+
+// NPC
+void	update_npc(t_screen *screen);
 
 // Ceiling and floor
 void	draw_ceiling(t_screen *screen);

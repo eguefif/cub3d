@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_textures.c                                    :+:      :+:    :+:   */
+/*   init_images.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 10:19:10 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/01 19:38:35 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/01 20:04:01 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_wall_textures(void *mlx, t_screen *screen)
 	}
 }
 
-void	init_animation(t_screen *screen)
+void	init_animations(t_screen *screen)
 {
 	int		i;
 

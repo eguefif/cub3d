@@ -6,23 +6,26 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/24 20:42:59 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/01 20:12:42 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static void	looking_for_player(t_screen *screen);
-static void	looking_for_sprite(t_screen *screen);
+static void	looking_for_objects(t_screen *screen);
 static int	is_player(char c);
 static int	get_direction(char c);
-static void	get_sprite_texture(char cell, t_sprite *sprite);
+static void	get_object_image(char cell, t_sprite *object);
 static void	looking_for_animated_sprite(t_screen *screen);
+static int	is_animated_sprite(char cell);
+static int	get_animation_number(char anim)
+static int	is_object(char cell);
 
 void	parsing_map_information(t_screen *screen)
 {
 	looking_for_player(screen);
-	looking_for_sprite(screen);
+	looking_for_objects(screen);
 	looking_for_animated_sprite(screen);
 }
 static void	looking_for_animated_sprite(t_screen *screen)
@@ -38,16 +41,15 @@ static void	looking_for_animated_sprite(t_screen *screen)
 		cols = 0;
 		while (cols < screen->scene.map.width)
 		{
-
-			if (screen->scene.map.map[rows][cols] == '3')
+			if (is_animated_sprite(screen->scene.map.map[rows][cols]))
 			{
 				screen->scene.anim_sprites[counter].coord.x = (
 						cols * SQUARE_SIZE + SQUARE_SIZE / 2);
 				screen->scene.anim_sprites[counter].coord.y = (
 						rows * SQUARE_SIZE + SQUARE_SIZE / 2);
-				screen->scene.anim_sprites[counter].shift = 1;
 				screen->scene.anim_sprites[counter].current_img_index = 0;
-				screen->scene.anim_sprites[counter].animation = 0;
+				screen->scene.anim_sprites[counter].animation = get_animation_number(
+						screen->scene.map.map[rows][cols]);
 				counter++;
 			}
 			cols++;
@@ -55,6 +57,20 @@ static void	looking_for_animated_sprite(t_screen *screen)
 		rows++;
 	}
 	screen->scene.anim_count = counter;
+}
+
+static int	is_animated_sprite(char cell)
+{
+	if (ft_strchr("3", cell))
+		return (1);
+	return (0);
+}
+
+static int	get_animation_number(char anim)
+{
+	if (anim == '3')
+		return (0);
+	return (0);
 }
 
 static void	looking_for_player(t_screen *screen)
@@ -106,7 +122,7 @@ static int	get_direction(char c)
 	return (0);
 }
 
-static void	looking_for_sprite(t_screen *screen)
+static void	looking_for_objects(t_screen *screen)
 {
 	int		cols_counter;
 	int		row_counter;
@@ -121,13 +137,15 @@ static void	looking_for_sprite(t_screen *screen)
 		while (cols_counter < screen->scene.map.width)
 		{
 			cell = screen->scene.map.map[row_counter][cols_counter];
-			if (ft_strchr("2", cell))
+			if (is_object(cell))
 			{
 				if (sprite_count < 50)
 				{
-					screen->scene.sprites[sprite_count].coord.x = cols_counter * SQUARE_SIZE + SQUARE_SIZE / 2;
-					screen->scene.sprites[sprite_count].coord.y = row_counter * SQUARE_SIZE + SQUARE_SIZE / 2;
-					get_sprite_texture(cell, &screen->scene.sprites[sprite_count]);
+					screen->scene.items[sprite_count].coord.x = (
+							cols_counter * SQUARE_SIZE + SQUARE_SIZE / 2)
+					screen->scene.items[sprite_count].coord.y = (
+							row_counter * SQUARE_SIZE + SQUARE_SIZE / 2);
+					get_object_image(cell, &screen->scene.items[sprite_count]);
 					sprite_count++;
 				}
 			}
@@ -135,14 +153,20 @@ static void	looking_for_sprite(t_screen *screen)
 		}
 		row_counter++;
 	}
-	screen->scene.sprite_count = sprite_count;
+	screen->scene.items_count = sprite_count;
 }
 
-static void	get_sprite_texture(char cell, t_sprite *sprite)
+static int	is_object(char cell)
 {
 	if (ft_strchr("2", cell))
-	{
-		sprite->texture = 0;
-		sprite->shift = 0.75;
-	}
+		return (1);
+	return (0);
+}
+
+static void	get_object_image(char cell, t_sprite *object)
+{
+	if (ft_strchr("2", cell))
+		object->image_number = 0;
+	else
+		object->image_number = 0;
 }

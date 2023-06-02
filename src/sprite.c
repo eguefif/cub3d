@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 11:15:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/24 15:37:02 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/01 20:13:20 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ void	get_sprites(t_screen *screen, t_list **objects)
 	int		sprite_counter;
 
 	sprite_counter = 0;
-	while (sprite_counter < screen->scene.sprite_count)
+	while (sprite_counter < screen->scene.objects_count)
 	{
 		build_sprite_objects(screen,
-			screen->scene.sprites[sprite_counter], objects);
+			screen->scene.objects[sprite_counter], objects);
 		sprite_counter++;
 	}
 }
 
 void	build_sprite_objects(t_screen *screen,
-		t_sprite sprite, t_list **objects)
+		t_item item, t_list **objects)
 {
 	double		delta;
 	t_object	*sprite_object;
@@ -48,7 +48,7 @@ void	build_sprite_objects(t_screen *screen,
 			delta_rays) * screen->raycasting_param.scale;
 	sprite_object->buffer_coord.y = screen->scene.resolution.height / 2 - 
 			sprite_object->height + sprite_object->height * sprite.shift;
-	sprite_object->texture = sprite.texture;
+	sprite_object->texture = item.image;
 	sprite_object->type = 's';
 	sprite_object->distance = sprite_object->distance * cos(degree_to_radian(delta));
 	sprite_object->width = sprite_object->height * screen->scene.sprite_images[sprite.texture]->ratio;

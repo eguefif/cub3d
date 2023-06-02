@@ -29,7 +29,7 @@ _SRC = cub3d.c \
 	   raycasting_utils.c \
 	   player_movement.c \
 	   time_handler.c \
-	   init_textures.c \
+	   init_images.c \
 	   image_treatement.c \
 	   drawing_texture.c \
 	   wall.c \

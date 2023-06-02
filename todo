@@ -1,4 +1,11 @@
 
+refactoring the image sprite animation system
+I have to check if I load images for animation at some point.
+I have to finish checking the refactoring of get_sprite and get_animated_sprites.
+I have to be sure the rendering will get image or texture correctly.
+
+June
+
 Texture
 Get the slice of texture:
 	Problem: 

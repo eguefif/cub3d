@@ -1,0 +1,5 @@
+A ./attack/ 2
+D ./death/ 10
+I ./idle/ 7
+P ./pain/ 1
+W ./walk/ 4
