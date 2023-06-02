@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/01 20:12:42 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 08:12:56 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	looking_for_player(t_screen *screen);
 static void	looking_for_objects(t_screen *screen);
 static int	is_player(char c);
 static int	get_direction(char c);
-static void	get_object_image(char cell, t_sprite *object);
+static void	get_object_image(char cell, t_item *object);
 static void	looking_for_animated_sprite(t_screen *screen);
 static int	is_animated_sprite(char cell);
-static int	get_animation_number(char anim)
+static int	get_animation_number(char anim);
 static int	is_object(char cell);
 
 void	parsing_map_information(t_screen *screen)
@@ -142,7 +142,7 @@ static void	looking_for_objects(t_screen *screen)
 				if (sprite_count < 50)
 				{
 					screen->scene.items[sprite_count].coord.x = (
-							cols_counter * SQUARE_SIZE + SQUARE_SIZE / 2)
+							cols_counter * SQUARE_SIZE + SQUARE_SIZE / 2);
 					screen->scene.items[sprite_count].coord.y = (
 							row_counter * SQUARE_SIZE + SQUARE_SIZE / 2);
 					get_object_image(cell, &screen->scene.items[sprite_count]);
@@ -163,7 +163,7 @@ static int	is_object(char cell)
 	return (0);
 }
 
-static void	get_object_image(char cell, t_sprite *object)
+static void	get_object_image(char cell, t_item *object)
 {
 	if (ft_strchr("2", cell))
 		object->image_number = 0;

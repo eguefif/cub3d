@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/01 20:23:27 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 08:18:50 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_animation
 	char		path[50];
 	t_sprite	sprites[10];
 	double		shift;
+	int			images_nbr;
 }				t_animation;
 
 typedef struct s_animated_sprite
@@ -130,7 +131,7 @@ typedef struct s_scene
 	t_map			map;
 	t_image			textures[NBR_TEXTURES];
 	t_npc			ennemies[50];
-	t_item			items[50]
+	t_item			items[50];
 	t_sprite		sprites[50];
 	t_animation		animations[50];
 	t_anim_sprite	anim_sprites[50];	

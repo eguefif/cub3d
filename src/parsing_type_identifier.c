@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:13:48 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/01 20:06:04 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 08:11:03 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	parse_textures(t_scene *scene, char **splited_line)
 	else if (!ft_strcmp(splited_line[0], "S"))
 	{
 		ft_strncpy(
-			scene->sprite_images[scene->images_sprite_count]->path,
+			scene->sprites[scene->images_sprite_count].image.path,
 			splited_line[1], 49);
 		scene->images_sprite_count += 1;
-		scene->sprite_images[scene->images_sprite_count]->shift = ft_atoi(
+		scene->sprites[scene->images_sprite_count].shift = ft_atoi(
 				splited_line[2]) / 100;
 	}
 	else if (!ft_strcmp(splited_line[0], "AS"))

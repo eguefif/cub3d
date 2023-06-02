@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:48:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 17:47:29 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 08:17:11 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,20 @@ static void	destroy_images(t_screen *screen)
 
 static void	destroy_animated_sprites(t_screen *screen)
 {
-	int		sprite_counter;
+	int			sprite_counter;
+	int			anim_counter;
+	t_animation	*anim;
 
-	sprite_counter = 0;
-	while (sprite_counter < screen->scene.images_sprite_count)
+	anim_counter = 0;
+	while (anim_counter < screen->scene.anim_count)
 	{
-		mlx_destroy_image(screen->mlx_ptr, screen->scene.sprite_images[
-				sprite_counter]->img_ptr);
-		free(screen->scene.sprite_images[sprite_counter]);
-		sprite_counter++;
+		anim = &screen->scene.animations[anim_counter];
+		sprite_counter = 0;
+		while (sprite_counter < anim->images_nbr)
+		{
+			mlx_destroy_image(screen->mlx_ptr,
+					anim->sprites[sprite_counter].image.img_ptr);
+			sprite_counter++;
+		}
 	}
 }

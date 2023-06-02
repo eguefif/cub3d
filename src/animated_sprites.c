@@ -11,6 +11,8 @@
 
 #include "cub3d.h"
 
+void	update_animated_sprite(t_scene scene, t_anim_sprite *anim_sprite);
+
 void	get_animated_sprites(t_screen *screen, t_list **head)
 {
 	int			counter;
@@ -19,16 +21,15 @@ void	get_animated_sprites(t_screen *screen, t_list **head)
 	t_sprite	sprite;
 
 	counter = 0;
-	image_number = 0;
 	current_image = 0;
 	while (counter < screen->scene.anim_count)
 	{
-		animation_number = screen->scene.anim_sprite[counter].animation;
+		animation_number = screen->scene.anim_sprites[counter].animation;
 		update_animated_sprite(screen->scene,
 			&screen->scene.anim_sprites[counter]);
 		current_image = screen->scene.anim_sprites[counter].current_img_index;
-		sprite = screen->scene.animations[image_number].sprites[current_image];
-		sprite.image.shift = screen->scene.animations[animation_number].shift;
+		sprite = screen->scene.animations[animation_number].sprites[current_image];
+		sprite.shift = screen->scene.animations[animation_number].shift;
 		build_sprite_objects(screen, sprite, head);
 		counter++;
 	}
