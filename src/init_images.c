@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 10:19:10 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/02 08:25:30 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 15:15:37 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,15 @@ void	init_animations(t_screen *screen)
 static void	get_animation(void *mlx, t_animation *animation)
 {
 	int		i;
-	char	path[100];
 
 	i = 0;
 	while(i < 4)
 	{
-		ft_strcpy(path, animation->sprites[i].image.path);
-		ft_strcpy(path, ft_itoa(i));
-		ft_strcpy(path, ".xpm");
-		//vsprintf(path, "%s%d.xpm", animation->sprites[i].image.path, i);
 		animation->sprites[i].image.path[0] = '\0';
-		ft_strcpy(animation->sprites[i].image.path, path);
+		ft_strcpy(animation->sprites[i].image.path,
+				animation->path);
+		ft_strcat(animation->sprites[i].image.path, ft_itoa(i));
+		ft_strcat(animation->sprites[i].image.path, ".xpm");
 		create_image_from_path(mlx, &animation->sprites[i].image);
 		i++;
 	}

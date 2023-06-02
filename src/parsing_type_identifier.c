@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:13:48 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/02 08:11:03 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 15:26:58 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	parse_textures(t_scene *scene, char **splited_line)
 		ft_strncpy(
 			scene->sprites[scene->images_sprite_count].image.path,
 			splited_line[1], 49);
-		scene->images_sprite_count += 1;
-		scene->sprites[scene->images_sprite_count].shift = ft_atoi(
+		scene->sprites[scene->images_sprite_count].shift = (double) ft_atoi(
 				splited_line[2]) / 100;
+		scene->images_sprite_count += 1;
 	}
 	else if (!ft_strcmp(splited_line[0], "AS"))
 	{
@@ -61,9 +61,9 @@ void	parse_textures(t_scene *scene, char **splited_line)
 			splited_line[1], 49);
 		scene->animations[scene->anim_count].images_nbr = ft_atoi(
 				splited_line[2]);
-		scene->animations[scene->anim_count].shift = ft_atoi(
+		scene->animations[scene->anim_count].shift = (double) ft_atoi(
 				splited_line[3]) / 100;
-		scene->animations[scene->anim_count].timing = ft_atoi(
+		scene->animations[scene->anim_count].timing = (double) ft_atoi(
 				splited_line[4]) / 100;
 		scene->anim_count++;
 	}

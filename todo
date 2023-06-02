@@ -1,25 +1,2 @@
-
-refactoring the image sprite animation system
-I have to check if I load images for animation at some point.
-I have to finish checking the refactoring of get_sprite and get_animated_sprites.
-I have to be sure the rendering will get image or texture correctly.
-
-June
-
-Texture
-Get the slice of texture:
-	Problem: 
-		At the moment, even after calculation, offset are way to small. I have to find a way to find the slice size between two ray.
-	Possible solution:
-		calculating all the ray and put everthing in an array.
-		Then drawing each slice.
-
-BUG:
-	When I get to close to the wall, it weirdly change.
-	Investigate the way I calculate the height size;
-	The problem is related to the one above. When I get cloer, there is less ray on the wall so the image extend.
-
-NEXT:
-	-> sprite
-	-> Floor
-	-> Ceiling
+TODO
+Make sprites to display.

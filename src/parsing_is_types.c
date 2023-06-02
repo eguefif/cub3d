@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:07:34 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/24 17:20:08 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 09:28:47 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_textures(char *type_identifier)
 		return (1);
 	else if (!ft_strcmp(type_identifier, "FL"))
 		return (1);
-	else if (!ft_strcmp(type_identifier, "AS_GREEN"))
+	else if (!ft_strcmp(type_identifier, "AS"))
 		return (1);
 	return (0);
 }

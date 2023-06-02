@@ -22,7 +22,7 @@ void	get_animated_sprites(t_screen *screen, t_list **head)
 
 	counter = 0;
 	current_image = 0;
-	while (counter < screen->scene.anim_count)
+	while (counter < screen->scene.anim_sprite_count)
 	{
 		animation_number = screen->scene.anim_sprites[counter].animation;
 		update_animated_sprite(screen->scene,
@@ -30,6 +30,7 @@ void	get_animated_sprites(t_screen *screen, t_list **head)
 		current_image = screen->scene.anim_sprites[counter].current_img_index;
 		sprite = screen->scene.animations[animation_number].sprites[current_image];
 		sprite.shift = screen->scene.animations[animation_number].shift;
+		sprite.coord = screen->scene.anim_sprites[counter].coord;
 		build_sprite_objects(screen, sprite, head);
 		counter++;
 	}

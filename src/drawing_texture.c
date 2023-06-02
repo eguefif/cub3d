@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/24 15:34:15 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 15:12:30 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_objects(t_screen *screen, t_object *object)
 	if (object->type == 'w')
 		draw_wall(screen, screen->scene.textures[object->texture], object);
 	else if (object->type == 's')
-		draw_sprite(screen, screen->scene.sprite_images[object->texture], object);
+		draw_sprite(screen, &object->image, object);
 }
 
 static void	draw_sprite(t_screen *screen, t_image *src, t_object *object)

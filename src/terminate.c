@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 13:48:50 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/02 08:17:11 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 09:48:14 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ static void	destroy_animated_sprites(t_screen *screen)
 					anim->sprites[sprite_counter].image.img_ptr);
 			sprite_counter++;
 		}
+		anim_counter++;
 	}
 }

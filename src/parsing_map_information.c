@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 18:55:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/02 08:12:56 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 09:42:03 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	looking_for_animated_sprite(t_screen *screen)
 		}
 		rows++;
 	}
-	screen->scene.anim_count = counter;
+	screen->scene.anim_sprite_count = counter;
 }
 
 static int	is_animated_sprite(char cell)

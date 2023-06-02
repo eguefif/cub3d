@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/02 08:18:50 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/02 09:43:00 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct s_scene
 	t_animation		animations[50];
 	t_anim_sprite	anim_sprites[50];	
 	int				images_sprite_count;
+	int				anim_sprite_count;
 	int				anim_count;
 	int				items_count;
 }					t_scene;
@@ -196,6 +197,7 @@ typedef struct s_object
 	double	subsurface_height;
 	double	scale_factor;
 	double	offset;
+	t_image	image;
 	int		ray_nbr;
 }			t_object;
 
@@ -253,7 +255,7 @@ void	draw_rectangle(t_screen *screen, int width, int height, t_point coord);
 int		get_color(t_screen *screen, t_color color);
 void	copy_byte_to_image(char *dst, char *src);
 
-// Textures functions in texture.c
+// Textures functions in draw_texture.c
 void	draw_objects(t_screen *screen, t_object *wall);
 void	sort_objects_by_distance(t_list *first, t_list *last);
 t_list	*last_node(t_list *head);
