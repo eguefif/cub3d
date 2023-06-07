@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_handler.c                                    :+:      :+:    :+:   */
+/*   maths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 14:39:10 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/04 14:16:03 by eguefif          ###   ########.fr       */
+/*   Created: 2023/06/04 13:44:35 by eguefif           #+#    #+#             */
+/*   Updated: 2023/06/04 14:27:11 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	mouse_manager(int button, int x, int y, t_screen *screen)
+int	calculate_distance(t_point player, t_point wall)
 {
-	static int	x_pos = 0;
+	int		distance;
 
-	if (x_pos == 0)
-		x_pos = x;
-	else
-		printf("Button %d, %d %d, width %d\n",
-			button, x, y, screen->scene.resolution.width);
-	return (0);
+	distance = sqrt(pow(player.x - wall.x, 2) + pow(player.y - wall.y, 2));
+	return (distance);
+}
+
+double	degree_to_radian(double angle)
+{
+	return ((double) angle * M_PI / 180);
 }

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 18:04:41 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 17:32:34 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/05 17:23:48 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	parsing_other_element(t_scene *scene, char *path)
 	next_line_return = get_next_line(scene_file_descriptor, line);
 	scene->images_sprite_count = 0;
 	scene->anim_count = 0;
+	scene->npc_counter = 0;
 	while (next_line_return == 1)
 	{
 		process_line(scene, line);

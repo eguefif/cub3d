@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 17:45:35 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/02 09:43:00 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/06 17:24:22 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@
 # define SPEED 5
 # define ROT_SPEED 1
 # define FPS 30
+# define IDLE 0
+# define ATTACK 1
+# define PAIN 2
+# define WALK 3
+# define DEATH 4
 # define ANIMATION_TIMING 0.05
 
 typedef struct s_resolution
@@ -87,6 +92,13 @@ typedef struct s_sprite
 	double	shift;
 }			t_sprite;
 
+typedef struct s_display_info
+{
+	int		rows;
+	int		cols;
+	t_image	image;
+}				t_display_info;
+
 typedef struct s_item
 {
 	t_point	coord;
@@ -112,15 +124,23 @@ typedef struct s_animated_sprite
 
 typedef struct s_npc
 {
-	t_anim_sprite	walk;
-	t_anim_sprite	idle;
-	t_anim_sprite	attack;
-	t_anim_sprite	pain;
-	t_anim_sprite	death;
-	t_point			position;
-	int				life;
-	int				aim_skill;
-}					t_npc;
+	char		path[100];
+	char		name[100];
+	t_animation	walk;
+	t_animation	idle;
+	t_animation	attack;
+	t_animation	pain;
+	t_animation	death;
+}				t_npc;
+
+typedef struct s_npc_instance
+{
+	t_point		coord;
+	int			state;
+	int			life;
+	int			aim_skill;
+	char		type[50];
+}				t_npc_instance;
 
 typedef struct s_scene
 {
@@ -130,11 +150,14 @@ typedef struct s_scene
 	t_color			wall;
 	t_map			map;
 	t_image			textures[NBR_TEXTURES];
-	t_npc			ennemies[50];
+	t_npc_instance	ennemies[50];
 	t_item			items[50];
 	t_sprite		sprites[50];
+	t_npc			npc[50];
 	t_animation		animations[50];
 	t_anim_sprite	anim_sprites[50];	
+	int				npc_counter;
+	int				npc_instance_counter;
 	int				images_sprite_count;
 	int				anim_sprite_count;
 	int				anim_count;
@@ -230,23 +253,34 @@ void	destroy_list(t_list *first);
 
 //Init and terminating functions in parsing_*.c, init*.c and terminate.c
 void	init_game(t_screen *screen, char *path);
+void	init_color(t_screen *screen);
+int		get_color(t_screen *screen, t_color color);
 void	init_raycasting(t_screen *screen);
 void	init_screen_buffer(t_screen *screen);
 void	init_wall_textures(t_screen *screen);
 void	init_mouse(t_screen *screen);
 void	parsing_map_information(t_screen *screen);
+void	looking_for_objects(t_screen *screen);
+void	looking_for_animated_sprite(t_screen *screen);
+void	looking_for_npc(t_scene *scene);
 void	init_animations(t_screen *screen);
 void	init_sprites(t_screen *screen);
+void	init_npc_animation(t_screen *screen);
 int		terminate_game(t_screen *screen);
+void	parsing_sprites(t_scene *scene, char **splitted_line);
+void	parsing_animations(t_scene *scene, char **splitted_line);
+void	parsing_npc(t_scene *scene, char **splitted_line);
+void	get_animation(void *mlx, t_animation *animation);
 
 // Main loop function in keyboard_manager.c
 // rendering.c and player_movement.c time.c
 int		handle_pressedkey(int key, t_screen *screen);
 int		handle_releasedkey(int key, t_screen *screen);
-int	mouse_manager(int button, int x, int y, t_screen *screen);
+int		mouse_manager(int button, int x, int y, t_screen *screen);
 int		rendering_game(t_screen *screen);
 void	handle_movement(t_screen *screen);
 void	check_time(t_screen *screen);
+void	mouse_movement(t_screen *screen);
 
 // graphic functions using mlx in buffering.c and draw_basic_figure.
 void	swap_frame_screen(t_screen *screen);
@@ -269,8 +303,9 @@ int		check_for_collision(t_map map, t_point point);
 double	degree_to_radian(double angle);
 int		calculate_distance(t_point player, t_point wall);
 void	get_shorter_distance(t_object *distance1,
-		t_object *distance2, t_object *wall);
+			t_object *distance2, t_object *wall);
 void	correct_fishbowl_effect(t_screen *screen, t_object *wall);
+
 t_object	*calculate_wall_projection(t_screen *screen, t_ray *ray);
 
 // Sprites
@@ -278,11 +313,11 @@ void	get_sprites(t_screen *screen, t_list **objects);
 void	get_animated_sprites(t_screen *screen, t_list **objects);
 void	build_sprite_objects(t_screen *screen, t_sprite sprite,
 			t_list **objects);
-t_sprite	build_animated_sprite(t_screen *screen, t_anim_sprite anim_sprite);
 void	update_animated_sprite(t_scene scene, t_anim_sprite *anim_sprite);
-
-// NPC
-void	update_npc(t_screen *screen);
+void	draw_sprites(t_screen *screen, t_image *src, t_object *object);
+void	draw_walls(t_screen *screen, t_image src, t_object *object);
+t_sprite	build_animated_sprite(t_screen *screen, t_anim_sprite anim_sprite);
+void	update_npc(t_screen *screen, t_list **objects);
 
 // Ceiling and floor
 void	draw_ceiling(t_screen *screen);
@@ -298,6 +333,10 @@ int		get_blue(unsigned int rgba);
 // Image processing functions
 t_image	create_image(t_screen *screen, int width, int height);
 void	create_image_from_path(void *mlx, t_image *image);
+
+// maths
+int		calculate_distance(t_point player, t_point wall);
+double	degree_to_radian(double angle);
 
 // Error functions in error files
 void	handle_error(char *message);

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 07:48:27 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 09:21:18 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/04 11:53:38 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,12 @@ void	get_texture(t_object *wall)
 	wall->texture = -1;
 	if (wall->coord.x == map_x && map_x != 0)
 		wall->texture = EAST;
-	else if ((ceil(wall->coord.y) == ceil(map_y + SQUARE_SIZE - 0.0001)) || map_y == 0)
+	else if ((ceil(wall->coord.y) == ceil(
+				map_y + SQUARE_SIZE - 0.0001)) || map_y == 0)
 		wall->texture = NORTH;
 	else if (wall->coord.y == map_y && map_y != 0)
 		wall->texture = SOUTH;
-	else if ((ceil(wall->coord.x) == ceil(map_x + SQUARE_SIZE - 0.0001)) || map_x == 0)
+	else if ((ceil(wall->coord.x) == ceil(
+				map_x + SQUARE_SIZE - 0.0001)) || map_x == 0)
 		wall->texture = WEST;
 }

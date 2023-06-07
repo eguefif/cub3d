@@ -7,7 +7,16 @@ RM = rm -f
 DEBUG = -g -ggdb3
 
 _SRC = cub3d.c \
+	   maths.c \
+	   parsing_npc.c \
+	   init_npc.c \
+	   parsing_map_npc.c \
 	   animated_sprites.c \
+	   init_color.c \
+	   npc.c \
+	   parsing_map_objects.c \
+	   parsing_map_animations.c \
+	   parsing_sprites.c \
 	   mouse_handler.c \
 	   error_management.c \
 	   parsing.c \
@@ -28,10 +37,13 @@ _SRC = cub3d.c \
 	   raycasting_vertical.c \
 	   raycasting_utils.c \
 	   player_movement.c \
+	   player_movement_mouse.c \
 	   time_handler.c \
 	   init_images.c \
 	   image_treatement.c \
-	   drawing_texture.c \
+	   drawing_walls.c \
+	   drawing_objects.c \
+	   drawing_sprites.c \
 	   wall.c \
 	   list.c \
 	   ceiling.c \

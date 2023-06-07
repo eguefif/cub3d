@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 19:13:48 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/02 15:26:58 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/05 16:42:40 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,12 @@ void	parse_textures(t_scene *scene, char **splited_line)
 	else if (!ft_strcmp(splited_line[0], "SK"))
 		ft_strncpy(scene->textures[SKY].path, splited_line[1], 49);
 	else if (!ft_strcmp(splited_line[0], "S"))
-	{
-		ft_strncpy(
-			scene->sprites[scene->images_sprite_count].image.path,
-			splited_line[1], 49);
-		scene->sprites[scene->images_sprite_count].shift = (double) ft_atoi(
-				splited_line[2]) / 100;
-		scene->images_sprite_count += 1;
-	}
+		parsing_sprites(scene, splited_line);
 	else if (!ft_strcmp(splited_line[0], "AS"))
-	{
-		ft_strncpy(scene->animations[scene->anim_count].path,
-			splited_line[1], 49);
-		scene->animations[scene->anim_count].images_nbr = ft_atoi(
-				splited_line[2]);
-		scene->animations[scene->anim_count].shift = (double) ft_atoi(
-				splited_line[3]) / 100;
-		scene->animations[scene->anim_count].timing = (double) ft_atoi(
-				splited_line[4]) / 100;
-		scene->anim_count++;
-	}
+		parsing_animations(scene, splited_line);
+	else if (!ft_strcmp(splited_line[0], "NPC"))
+		parsing_npc(scene, splited_line);
+
 }
 
 void	parse_colors(t_scene *scene, char **splited_line)

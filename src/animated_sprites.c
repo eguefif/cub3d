@@ -1,11 +1,12 @@
-/* ************************************************************************** */ /*                                                                            */
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   animated_sprites.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/22 16:15:40 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/24 20:41:54 by eguefif          ###   ########.fr       */
+/*   Created: 2023/06/04 11:19:38 by eguefif           #+#    #+#             */
+/*   Updated: 2023/06/04 14:27:30 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +29,8 @@ void	get_animated_sprites(t_screen *screen, t_list **head)
 		update_animated_sprite(screen->scene,
 			&screen->scene.anim_sprites[counter]);
 		current_image = screen->scene.anim_sprites[counter].current_img_index;
-		sprite = screen->scene.animations[animation_number].sprites[current_image];
+		sprite = screen->scene.animations[
+			animation_number].sprites[current_image];
 		sprite.shift = screen->scene.animations[animation_number].shift;
 		sprite.coord = screen->scene.anim_sprites[counter].coord;
 		build_sprite_objects(screen, sprite, head);

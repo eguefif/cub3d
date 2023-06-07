@@ -1,2 +1,13 @@
 TODO
-Make sprites to display.
+Build a NPC ennemy system.
+NPC are struct with 4 animations:
+-attack
+-walk
+-idle
+-die
+
+build an update function that update the state of the NPC.
+-> depending on the direction of the NPC and the angle with the player, display a different idle picture.
+build a get_npc_objects that is just a call to buil animated sprite with a NPC struct and the right characteristic.
+
+An NPC is pull just with the distance.

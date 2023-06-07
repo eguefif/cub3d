@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_handler.c                                    :+:      :+:    :+:   */
+/*   drawing_objects.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 14:39:10 by eguefif           #+#    #+#             */
-/*   Updated: 2023/06/04 14:16:03 by eguefif          ###   ########.fr       */
+/*   Created: 2023/05/12 09:49:12 by eguefif           #+#    #+#             */
+/*   Updated: 2023/06/04 13:35:24 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <time.h>
 
-int	mouse_manager(int button, int x, int y, t_screen *screen)
+void	draw_objects(t_screen *screen, t_object *object)
 {
-	static int	x_pos = 0;
-
-	if (x_pos == 0)
-		x_pos = x;
-	else
-		printf("Button %d, %d %d, width %d\n",
-			button, x, y, screen->scene.resolution.width);
-	return (0);
+	if (object->type == 'w')
+		draw_walls(screen, screen->scene.textures[object->texture], object);
+	else if (object->type == 's')
+		draw_sprites(screen, &object->image, object);
 }

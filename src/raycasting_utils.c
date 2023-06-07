@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 08:15:55 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 11:12:27 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/04 13:45:28 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,6 @@ static int	is_point_in_map(t_map map, int x, int y)
 	else if (y < 0 || y >= map.height)
 		return (0);
 	return (1);
-}
-
-int	calculate_distance(t_point player, t_point wall)
-{
-	int		distance;
-
-	distance = sqrt(pow(player.x - wall.x, 2) + pow(player.y - wall.y, 2));
-	return (distance);
-}
-
-double	degree_to_radian(double angle)
-{
-	return ((double) angle * M_PI / 180);
 }
 
 void	get_shorter_distance(t_object *distance1,

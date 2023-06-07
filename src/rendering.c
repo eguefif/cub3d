@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@fastmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 10:42:58 by eguefif           #+#    #+#             */
-/*   Updated: 2023/05/22 16:15:22 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/06/06 17:16:42 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	rendering_game(t_screen *screen)
 	get_walls_object(screen, &head);
 	get_sprites(screen, &head);
 	get_animated_sprites(screen, &head);
+	update_npc(screen, &head);
 	sort_objects_by_distance(head, last_node(head));
 	render_objects(screen, head);
 	check_time(screen);
